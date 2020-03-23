@@ -56,18 +56,4 @@
     <integer name="vibratorMinMV"></integer>
     <integer name="vibratorMaxMV"></integer>
     <integer name="vibratorDefaultMV"></integer>
-
-    <!-- Device Gesture Paths -->
-    <string name="pathGestureCircle"></string>
-    <string name="pathGestureDoubleSwipe"></string>
-    <string name="pathGestureDownArrow"></string>
-    <string name="pathGestureLeftArrow"></string>
-    <string name="pathGestureRightArrow"></string>
-    <string name="pathGestureDownSwipe"></string>
-    <string name="pathGestureUpSwipe"></string>
-    <string name="pathGestureLeftSwipe"></string>
-    <string name="pathGestureRightSwipe"></string>
-    <string name="pathGestureM"></string>
-    <string name="pathGestureS"></string>
-    <string name="pathGestureW"></string>
 </resources>
