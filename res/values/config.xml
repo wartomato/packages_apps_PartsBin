@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2016 The OmniROM Project
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <bool name="config_device_has_hw_nav_buttons">false</bool>
+
+    <!-- Whether device supports disabling hwkeys -->
+    <string name="pathHWKToggle"></string>
+
+    <!-- Path to devices High Brigness Mode toggle file -->
+    <string name="pathHBMModeToggle"></string>
+
+    <!-- Path to devices High Brigness Mode toggle file -->
+    <string name="pathOnePlusModeToggle"></string>
+
+    <!-- Path to devices NightMode toggle file -->
+    <string name="pathNightModeToggle"></string>
+
+    <!-- Path to devices SRGBMode toggle file -->
+    <string name="pathSRGBModeToggle"></string>
+
+    <!-- Path to devices DCIMode toggle file -->
+    <string name="pathDCIModeToggle"></string>
+
+    <!-- Path to devices DCDMode toggle file -->
+    <string name="pathDCDModeToggle"></string>
+
+    <!-- Path to devices WideMode toggle file -->
+    <string name="pathWideModeToggle"></string>
+
+    <!-- Whether device allow changing system vibrationlevels -->
+    <string name="pathSystemVibStrength"></string>
+
+    <!-- Whether device allow changing calls vibrationlevels -->
+    <string name="pathCallVibStrength"></string>
+
+    <!-- Whether device allow changing notification vibrationlevels -->
+    <string name="pathNotifVibStrength"></string>
+
+    <!-- Device vibrator min-max-default values -->
+    <integer name="vibratorMinMV"></integer>
+    <integer name="vibratorMaxMV"></integer>
+    <integer name="vibratorDefaultMV"></integer>
+
+    <!-- Device Gesture Paths -->
+    <string name="pathGestureCircle"></string>
+    <string name="pathGestureDoubleSwipe"></string>
+    <string name="pathGestureDownArrow"></string>
+    <string name="pathGestureLeftArrow"></string>
+    <string name="pathGestureRightArrow"></string>
+    <string name="pathGestureDownSwipe"></string>
+    <string name="pathGestureUpSwipe"></string>
+    <string name="pathGestureLeftSwipe"></string>
+    <string name="pathGestureRightSwipe"></string>
+    <string name="pathGestureM"></string>
+    <string name="pathGestureS"></string>
+    <string name="pathGestureW"></string>
+</resources>
