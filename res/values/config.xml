@@ -28,9 +28,6 @@
     <!-- Path to devices High Brigness Mode toggle file -->
     <string name="pathOnePlusModeToggle"></string>
 
-    <!-- Path to devices NightMode toggle file -->
-    <string name="pathNightModeToggle"></string>
-
     <!-- Path to devices SRGBMode toggle file -->
     <string name="pathSRGBModeToggle"></string>
 

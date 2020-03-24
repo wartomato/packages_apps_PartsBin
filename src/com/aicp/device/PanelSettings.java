@@ -56,7 +56,6 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
         updateRadioButtonState(view.findViewById(R.id.dci_mode), DCIModeSwitch.isSupported(mContext));
         updateRadioButtonState(view.findViewById(R.id.srgb_mode), SRGBModeSwitch.isSupported(mContext));
         updateRadioButtonState(view.findViewById(R.id.wide_mode), WideModeSwitch.isSupported(mContext));
-        updateRadioButtonState(view.findViewById(R.id.night_mode), NightModeSwitch.isSupported(mContext));
         updateRadioButtonState(view.findViewById(R.id.oneplus_mode), OnePlusModeSwitch.isSupported(mContext));
 
         int checkedButtonId = R.id.off_mode;
@@ -66,8 +65,6 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
             checkedButtonId = R.id.dci_mode;
         } else if (SRGBModeSwitch.isCurrentlyEnabled(mContext)) {
             checkedButtonId = R.id.srgb_mode;
-        } else if (NightModeSwitch.isCurrentlyEnabled(mContext)) {
-            checkedButtonId = R.id.night_mode;
         } else if (OnePlusModeSwitch.isCurrentlyEnabled(mContext)) {
             checkedButtonId = R.id.oneplus_mode;
         }
@@ -90,8 +87,6 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
         if (checkedId == R.id.srgb_mode) {
             Utils.writeValue(DCIModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), DCIModeSwitch.SETTINGS_KEY, 0);
-            Utils.writeValue(NightModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), NightModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(WideModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), WideModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(OnePlusModeSwitch.getFile(mContext), "0");
@@ -101,8 +96,6 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
         } else if (checkedId == R.id.dci_mode) {
             Utils.writeValue(DCIModeSwitch.getFile(mContext), "1");
             Settings.System.putInt(getContext().getContentResolver(), DCIModeSwitch.SETTINGS_KEY, 1);
-            Utils.writeValue(NightModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), NightModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(WideModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), WideModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(OnePlusModeSwitch.getFile(mContext), "0");
@@ -112,21 +105,8 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
         } else if (checkedId == R.id.wide_mode) {
             Utils.writeValue(DCIModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), DCIModeSwitch.SETTINGS_KEY, 0);
-            Utils.writeValue(NightModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), NightModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(WideModeSwitch.getFile(mContext), "1");
             Settings.System.putInt(getContext().getContentResolver(), WideModeSwitch.SETTINGS_KEY, 1);
-            Utils.writeValue(OnePlusModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), OnePlusModeSwitch.SETTINGS_KEY, 0);
-            Utils.writeValue(SRGBModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), SRGBModeSwitch.SETTINGS_KEY, 0);
-        } else if (checkedId == R.id.night_mode) {
-            Utils.writeValue(DCIModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), DCIModeSwitch.SETTINGS_KEY, 0);
-            Utils.writeValue(NightModeSwitch.getFile(mContext), "1");
-            Settings.System.putInt(getContext().getContentResolver(), NightModeSwitch.SETTINGS_KEY, 1);
-            Utils.writeValue(WideModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), WideModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(OnePlusModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), OnePlusModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(SRGBModeSwitch.getFile(mContext), "0");
@@ -134,8 +114,6 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
         } else if (checkedId == R.id.oneplus_mode) {
             Utils.writeValue(DCIModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), DCIModeSwitch.SETTINGS_KEY, 0);
-            Utils.writeValue(NightModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), NightModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(WideModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), WideModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(OnePlusModeSwitch.getFile(mContext), "1");
@@ -145,8 +123,6 @@ public class PanelSettings extends PreferenceFragment implements RadioGroup.OnCh
         } else if (checkedId == R.id.off_mode) {
             Utils.writeValue(DCIModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), DCIModeSwitch.SETTINGS_KEY, 0);
-            Utils.writeValue(NightModeSwitch.getFile(mContext), "0");
-            Settings.System.putInt(getContext().getContentResolver(), NightModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(WideModeSwitch.getFile(mContext), "0");
             Settings.System.putInt(getContext().getContentResolver(), WideModeSwitch.SETTINGS_KEY, 0);
             Utils.writeValue(OnePlusModeSwitch.getFile(mContext), "0");
