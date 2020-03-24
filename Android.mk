@@ -1,5 +1,5 @@
 LOCAL_PATH := $(call my-dir)
-ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),cheeseburger dumpling enchilada fajita))
+ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),cheeseburger dumpling enchilada fajita guacamoleb))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
@@ -13,7 +13,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src)
 ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),cheeseburger dumpling))
     LOCAL_SRC_FILES += $(call all-java-files-under, src_5kh)
 endif
-ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),enchilada fajita))
+ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),enchilada fajita guacamoleb))
     LOCAL_SRC_FILES += $(call all-java-files-under, src_6kh)
 endif
 LOCAL_PACKAGE_NAME := DeviceParts
