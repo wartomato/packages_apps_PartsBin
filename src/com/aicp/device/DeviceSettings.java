@@ -55,7 +55,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String KEY_GRAPHICS_CATEGORY = "category_graphics";
     private static final String KEY_VIBRATOR_CATEGORY = "category_vibrator";
     private static final String KEY_SLIDER_CATEGORY = "category_slider";
-    private static final String KEY_DOZE_CATEGORY = "category_doze";
 
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
@@ -111,12 +110,6 @@ public class DeviceSettings extends PreferenceFragment implements
         } else {
             PreferenceCategory sliderCategory = (PreferenceCategory) findPreference(KEY_SLIDER_CATEGORY);
             sliderCategory.getParent().removePreference(sliderCategory);
-        }
-
-        boolean hasDozePackage = PackageUtils.isDozePackageAvailable(getContext());
-        if (!hasDozePackage) {
-            PreferenceCategory dozeCategory = (PreferenceCategory) findPreference(KEY_DOZE_CATEGORY);
-            dozeCategory.getParent().removePreference(dozeCategory);
         }
 
         mHWKSwitch = (TwoStatePreference) findPreference(KEY_HWK_SWITCH);
