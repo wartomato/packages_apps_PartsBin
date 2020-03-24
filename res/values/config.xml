@@ -24,6 +24,8 @@
 
     <!-- Path to devices High Brigness Mode toggle file -->
     <string name="pathHBMModeToggle"></string>
+    <string name="hbmOFF">"0"</string>
+    <string name="hbmON">"1"</string>
 
     <!-- Path to devices High Brigness Mode toggle file -->
     <string name="pathOnePlusModeToggle"></string>
