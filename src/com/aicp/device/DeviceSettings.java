@@ -55,6 +55,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String KEY_GRAPHICS_CATEGORY = "category_graphics";
     private static final String KEY_VIBRATOR_CATEGORY = "category_vibrator";
     private static final String KEY_SLIDER_CATEGORY = "category_slider";
+    private static final String KEY_GESTURES_CATEGORY = "category_gestures";
 
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
@@ -64,6 +65,7 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_WIDE_SWITCH = "wide";
     public static final String KEY_ONEPLUSMODE_SWITCH = "oneplus";
     public static final String KEY_HWK_SWITCH = "hwk";
+    public static final String KEY_STAP_SWITCH = "single_tap";
 
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
@@ -78,6 +80,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mDCDModeSwitch;
     private static TwoStatePreference mHWKSwitch;
+    private static TwoStatePreference mSTapSwitch;
 
 
     @Override
@@ -120,6 +123,16 @@ public class DeviceSettings extends PreferenceFragment implements
         } else {
             PreferenceCategory buttonsCategory = (PreferenceCategory) findPreference(KEY_BUTTON_CATEGORY);
             buttonsCategory.getParent().removePreference(buttonsCategory);
+        }
+
+        PreferenceCategory gesturesCategory = (PreferenceCategory) findPreference(KEY_GESTURES_CATEGORY);
+        mSTapSwitch = (TwoStatePreference) findPreference(KEY_STAP_SWITCH);
+        if (mSTapSwitch != null && SingleTapSwitch.isSupported(getContext())){
+            mSTapSwitch.setEnabled(true);
+            mSTapSwitch.setChecked(SingleTapSwitch.isCurrentlyEnabled(getContext()));
+            mSTapSwitch.setOnPreferenceChangeListener(new SingleTapSwitch(getContext()));
+        } else {
+            gesturesCategory.removePreference(mSTapSwitch);
         }
 
         PreferenceCategory graphicsCategory = (PreferenceCategory) findPreference(KEY_GRAPHICS_CATEGORY);

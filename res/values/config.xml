@@ -22,6 +22,9 @@
     <!-- Whether device supports disabling hwkeys -->
     <string name="pathHWKToggle"></string>
 
+    <!-- Path to devices single-tap toggle file -->
+    <string name="pathSTapToggle"></string>
+
     <!-- Path to devices High Brigness Mode toggle file -->
     <string name="pathHBMModeToggle"></string>
     <string name="hbmOFF">"0"</string>

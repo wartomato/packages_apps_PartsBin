@@ -30,6 +30,7 @@
             android:icon="@drawable/ic_hbm"
             android:title="@string/hbm_mode_title"
             android:persistent="false" />
+
         <Preference
             android:key="panel_category"
             android:title="@string/panel_category_title"
@@ -45,6 +46,13 @@
     <PreferenceCategory
         android:key="category_gestures"
         android:title="@string/screen_gestures_panel_title">
+
+        <SwitchPreference
+            android:key="single_tap"
+            android:summary="@string/single_tap_summary"
+            android:icon="@drawable/ic_ambient_display"
+            android:title="@string/single_tap_title"
+            android:persistent="false" />
 
         <Preference
             android:key="gesture_category"

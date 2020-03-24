@@ -128,6 +128,9 @@ public class KeyHandler implements DeviceKeyHandler {
     // AICP additions: arbitrary value which hopefully doesn't conflict with upstream anytime soon
     public static final int MODE_SILENT = 620;
 
+    // Single tap key code
+    private static final int KEY_SINGLE_TAP = 67;
+
     private static final int[] sSupportedGestures = new int[]{
         GESTURE_II_SCANCODE,
         GESTURE_CIRCLE_SCANCODE,
@@ -340,6 +343,11 @@ public class KeyHandler implements DeviceKeyHandler {
     @Override
     public boolean handleKeyEvent(KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_UP) {
+            return false;
+        }
+        int scanCode = event.getScanCode();
+        if (scanCode == KEY_SINGLE_TAP) {
+            launchDozePulse();
             return false;
         }
 
@@ -636,6 +644,7 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void launchDozePulse() {
+        // Note: Only works with ambient display enabled.
         if (DEBUG) Log.i(TAG, "Doze pulse");
         mContext.sendBroadcastAsUser(new Intent(DOZE_INTENT),
                 new UserHandle(UserHandle.USER_CURRENT));

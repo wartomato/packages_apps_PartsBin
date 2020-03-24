@@ -54,6 +54,9 @@ public class Startup extends BroadcastReceiver {
             enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_HBM_SWITCH, false);
             Settings.System.putInt(context.getContentResolver(), HBMModeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
 
+            enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_STAP_SWITCH, false);
+            Settings.System.putInt(context.getContentResolver(), SingleTapSwitch.SETTINGS_KEY, enabled ? 1 : 0);
+
             enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_DCD_SWITCH, false);
             Settings.System.putInt(context.getContentResolver(), DCDModeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
 
@@ -159,5 +162,8 @@ public class Startup extends BroadcastReceiver {
 
         enabled = Settings.System.getInt(context.getContentResolver(), HBMModeSwitch.SETTINGS_KEY, 0) != 0;
         restore(HBMModeSwitch.getFile(context), enabled);
+
+        enabled = Settings.System.getInt(context.getContentResolver(), SingleTapSwitch.SETTINGS_KEY, 0) != 0;
+        restore(SingleTapSwitch.getFile(context), enabled);
     }
 }
