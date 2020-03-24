@@ -80,6 +80,7 @@ public class KeyHandler implements DeviceKeyHandler {
     protected static final int GESTURE_REQUEST = 1;
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
     public static final String GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME = "OFF_GESTURE_HAPTIC_ENABLE";
+    public static final String GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME = "MUSIC_PLAYBACK_GESTURE_ENABLE";
     private static final int GESTURE_HAPTIC_DURATION = 50;
     private static final String DT2W_CONTROL_PATH = "/proc/touchpanel/double_tap_enable";
 
@@ -542,6 +543,33 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private boolean launchSpecialActions(String value) {
+        final boolean musicPlaybackEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                "Settings.System."+GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
+        /* handle music playback gesture if enabled */
+        if (musicPlaybackEnabled) {
+            switch (value) {
+                case AppSelectListPreference.MUSIC_PLAY_ENTRY:
+                    mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
+                    AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
+                    dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
+                    return true;
+                case AppSelectListPreference.MUSIC_NEXT_ENTRY:
+                    if (isMusicActive()) {
+                        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
+                        AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
+                        dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_NEXT);
+                    }
+                    return true;
+                case AppSelectListPreference.MUSIC_PREV_ENTRY:
+                    if (isMusicActive()) {
+                        mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
+                        AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
+                        dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
+                    }
+                    return true;
+            }
+        }
+
         if (value.equals(AppSelectListPreference.TORCH_ENTRY)) {
             mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
             IStatusBarService service = getStatusBarService();
@@ -559,25 +587,6 @@ public class KeyHandler implements DeviceKeyHandler {
                 // do nothing.
                }
             }
-        } else if (value.equals(AppSelectListPreference.MUSIC_PLAY_ENTRY)) {
-            mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-            AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
-            dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
-            return true;
-        } else if (value.equals(AppSelectListPreference.MUSIC_NEXT_ENTRY)) {
-            if (isMusicActive()) {
-                mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-                AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
-                dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_NEXT);
-            }
-            return true;
-        } else if (value.equals(AppSelectListPreference.MUSIC_PREV_ENTRY)) {
-            if (isMusicActive()) {
-                mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-                AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
-                dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
-            }
-            return true;
         } else if (value.equals(AppSelectListPreference.AMBIENT_DISPLAY_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,GESTURE_HAPTIC_DURATION);
             launchDozePulse();
@@ -587,10 +596,10 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private String getGestureValueForScanCode(int scanCode) {
+      /* for the music playback gestures, just return the expected values */
         switch(scanCode) {
             case GESTURE_II_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_0, UserHandle.USER_CURRENT);
+                return AppSelectListPreference.MUSIC_PLAY_ENTRY;
             case GESTURE_CIRCLE_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_1, UserHandle.USER_CURRENT);
@@ -601,11 +610,9 @@ public class KeyHandler implements DeviceKeyHandler {
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_3, UserHandle.USER_CURRENT);
             case GESTURE_LEFT_V_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_4, UserHandle.USER_CURRENT);
+                return AppSelectListPreference.MUSIC_PREV_ENTRY;
             case GESTURE_RIGHT_V_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_5, UserHandle.USER_CURRENT);
+                return AppSelectListPreference.MUSIC_NEXT_ENTRY;
             case GESTURE_DOWN_SWIPE_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_6, UserHandle.USER_CURRENT);
