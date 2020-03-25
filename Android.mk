@@ -13,8 +13,11 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src)
 ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),cheeseburger dumpling))
     LOCAL_SRC_FILES += $(call all-java-files-under, src_5kh)
 endif
-ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),enchilada fajita guacamoleb))
+ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),enchilada fajita))
     LOCAL_SRC_FILES += $(call all-java-files-under, src_6kh)
+endif
+ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),guacamoleb))
+    LOCAL_SRC_FILES += $(call all-java-files-under, src_7kh)
 endif
 LOCAL_PACKAGE_NAME := DeviceParts
 LOCAL_CERTIFICATE := platform
