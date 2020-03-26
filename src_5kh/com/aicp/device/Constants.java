@@ -35,6 +35,7 @@ public class Constants {
     public static final int MODE_RING = 605;
     // AICP additions: arbitrary value which hopefully doesn't conflict with upstream anytime soon
     public static final int MODE_SILENT = 620;
+    public static final int MODE_FLASHLIGHT = 621;
 
     public static final int KEY_DOUBLE_TAP = 143;
     public static final int KEY_HOME = 102;

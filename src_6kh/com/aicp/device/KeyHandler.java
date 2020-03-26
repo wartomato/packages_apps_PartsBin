@@ -126,6 +126,7 @@ public class KeyHandler implements CustomKeyHandler {
     public static final int MODE_RING = 605;
     // AICP additions: arbitrary value which hopefully doesn't conflict with upstream anytime soon
     public static final int MODE_SILENT = 620;
+    public static final int MODE_FLASHLIGHT = 621;
 
     // Single tap key code
     private static final int KEY_SINGLE_TAP = 67;
@@ -410,7 +411,7 @@ public class KeyHandler implements CustomKeyHandler {
         } else if (action == 6) {
             mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            positionValue = MODE_RING;
+            positionValue = MODE_FLASHLIGHT;
             mUseSliderTorch = true;
             mTorchState = true;
         }

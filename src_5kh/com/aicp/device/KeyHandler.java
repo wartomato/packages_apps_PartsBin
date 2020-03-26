@@ -485,7 +485,7 @@ public class KeyHandler implements CustomKeyHandler {
         } else if (action == 6) {
             mNoMan.setZenMode(ZEN_MODE_OFF, null, TAG);
             mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-            positionValue = Constants.MODE_RING;
+            positionValue = Constants.MODE_FLASHLIGHT;
             mUseSliderTorch = true;
             mTorchState = true;
         }

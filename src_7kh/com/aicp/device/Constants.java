@@ -63,6 +63,7 @@ public class Constants {
     public static final int MODE_RING = 605;
     // AICP additions: arbitrary value which hopefully doesn't conflict with upstream anytime soon
     public static final int MODE_SILENT = 620;
+    public static final int MODE_FLASHLIGHT = 621;
 
     // Gesture constants
     public static final int GESTURE_RIGHT_SWIPE_SCANCODE = 63;
