@@ -19,7 +19,7 @@ endif
 ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),guacamoleb))
     LOCAL_SRC_FILES += $(call all-java-files-under, src_7kh)
 endif
-LOCAL_PACKAGE_NAME := DeviceParts
+LOCAL_PACKAGE_NAME := PartsBin
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVATE_PLATFORM_APIS := true
 LOCAL_PRIVILEGED_MODULE := true
@@ -31,9 +31,9 @@ LOCAL_USE_AAPT2 := true
 
 package_resource_overlays := $(strip \
     $(wildcard $(foreach dir, $(PRODUCT_PACKAGE_OVERLAYS), \
-      $(addprefix $(dir)/, packages/apps/DeviceParts/res))) \
+      $(addprefix $(dir)/, packages/apps/PartsBin/res))) \
     $(wildcard $(foreach dir, $(DEVICE_PACKAGE_OVERLAYS), \
-      $(addprefix $(dir)/, packages/apps/DeviceParts/res))))
+      $(addprefix $(dir)/, packages/apps/PartsBin/res))))
 
 LOCAL_RESOURCE_DIR := $(package_resource_overlays) $(LOCAL_RESOURCE_DIR)
 
