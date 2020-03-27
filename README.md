@@ -5,13 +5,13 @@
 
 Currently supporting
 
- op5: Cheeseburger
+	op5: Cheeseburger
 
- op5t: Dumpling
+	op5t: Dumpling
 
- op6: Enchilada
+	op6: Enchilada
 
- op7: Guacamoleb
+	op7: Guacamoleb
 
 Idea is to manage device specific settings from a common code base while allowing
 features/implementations unique to individual devices to coexist with common
@@ -24,97 +24,97 @@ Resources are used from https://github.com/eyosen/packages_resources_deviceparts
 
 Currently supported features include:
 
-*Toggles*
+	*Toggles*
 
-HWKSwitch: Hardware keys swap toggle (supported on devices hw nav keys)
+	HWKSwitch: Hardware keys swap toggle (supported on devices hw nav keys)
 
-HBMSwitch: High Brightness Mode toggle with configurable off-on values
+	HBMSwitch: High Brightness Mode toggle with configurable off-on values
 
-DCDSwitch: DC Dimming toggle
+	DCDSwitch: DC Dimming toggle
 
-Panel Modes: sRGB, DCI-P3, WideColor, OnePlus
+	Panel Modes: sRGB, DCI-P3, WideColor, OnePlus
 
-Vibration Modes: System, Calls, Notifications
-*if any vibration is used, 3 integer vibrator overlays **must** be defined
+	Vibration Modes: System, Calls, Notifications
+	*if any vibration is used, 3 integer vibrator overlays **must** be defined
 
-*ScreenOffGestures*
+	*ScreenOffGestures*
 
-Single Tap - to display ambient mode
+	Single Tap - to display ambient mode
 
-Music Control - Play/Pause, skip to prev or next track
+	Music Control - Play/Pause, skip to prev or next track
 
-O-W-M-S Gestures - configurable
+	O-W-M-S Gestures - configurable
 
-Left-Right-Up-Down Swipes - configurable
+	Left-Right-Up-Down Swipes - configurable
 
-Down Arrow Gesture - configurable
+	Down Arrow Gesture - configurable
 
-*AlertSlider*
+	*AlertSlider*
 
-Top-Center-Bottom positions with position bubbles
+	Top-Center-Bottom positions with position bubbles
 
-Possible selections:
+	Possible selections:
 
-Ringer: Ring, vibrate, silent
+	Ringer: Ring, vibrate, silent
 
-Zen mode: priority only, alarms only, do not disturb
+	Zen mode: priority only, alarms only, do not disturb
 
-Flashlight
+	Flashlight
 
 **Configurable overlays.**
 
-\<!-- Whether device supports disabling hwkeys -->
+	\<!-- Whether device supports disabling hwkeys -->
 
-\<string name="pathHWKToggle">\</string>
+	\<string name="pathHWKToggle">\</string>
 
-\<!-- Path to devices single-tap toggle file -->
+	\<!-- Path to devices single-tap toggle file -->
 
-\<string name="pathSTapToggle">\</string>
+	\<string name="pathSTapToggle">\</string>
 
-\<!-- Path to devices High Brigness Mode toggle file -->
+	\<!-- Path to devices High Brigness Mode toggle file -->
 
-\<string name="pathHBMModeToggle">\</string>
+	\<string name="pathHBMModeToggle">\</string>
 
-\<string name="hbmOFF">"0"\</string>
+	\<string name="hbmOFF">"0"\</string>
 
-\<string name="hbmON">"1"\</string>
+	\<string name="hbmON">"1"\</string>
 
-\<!-- Path to devices High Brigness Mode toggle file -->
+	\<!-- Path to devices High Brigness Mode toggle file -->
 
-\<string name="pathOnePlusModeToggle">\</string>
+	\<string name="pathOnePlusModeToggle">\</string>
 
-\<!-- Path to devices SRGBMode toggle file -->
+	\<!-- Path to devices SRGBMode toggle file -->
 
-\<string name="pathSRGBModeToggle">\</string>
+	\<string name="pathSRGBModeToggle">\</string>
 
-\<!-- Path to devices DCIMode toggle file -->
+	\<!-- Path to devices DCIMode toggle file -->
 
-\<string name="pathDCIModeToggle">\</string>
+	\<string name="pathDCIModeToggle">\</string>
 
-\<!-- Path to devices DCDMode toggle file -->
+	\<!-- Path to devices DCDMode toggle file -->
 
-\<string name="pathDCDModeToggle">\</string>
+	\<string name="pathDCDModeToggle">\</string>
 
-\<!-- Path to devices WideMode toggle file -->
+	\<!-- Path to devices WideMode toggle file -->
 
-\<string name="pathWideModeToggle">\</string>
+	\<string name="pathWideModeToggle">\</string>
 
-\<!-- Whether device allow changing system vibrationlevels -->
+	\<!-- Whether device allow changing system vibrationlevels -->
 
-\<string name="pathSystemVibStrength">\</string>
+	\<string name="pathSystemVibStrength">\</string>
 
-\<!-- Whether device allow changing calls vibrationlevels -->
+	\<!-- Whether device allow changing calls vibrationlevels -->
 
-\<string name="pathCallVibStrength">\</string>
+	\<string name="pathCallVibStrength">\</string>
 
-\<!-- Whether device allow changing notification vibrationlevels -->
+	\<!-- Whether device allow changing notification vibrationlevels -->
 
-\<string name="pathNotifVibStrength">\</string>
+	\<string name="pathNotifVibStrength">\</string>
 
-\<!-- Device vibrator min-max-default values -->
+	\<!-- Device vibrator min-max-default values -->
 
-\<integer name="vibratorMinMV">\</integer>
+	\<integer name="vibratorMinMV">\</integer>
 
-\<integer name="vibratorMaxMV">\</integer>
+	\<integer name="vibratorMaxMV">\</integer>
 
-\<integer name="vibratorDefaultMV">\</integer>
+	\<integer name="vibratorDefaultMV">\</integer>
