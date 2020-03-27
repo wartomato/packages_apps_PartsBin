@@ -29,14 +29,6 @@ LOCAL_RESOURCE_DIR := \
 
 LOCAL_USE_AAPT2 := true
 
-package_resource_overlays := $(strip \
-    $(wildcard $(foreach dir, $(PRODUCT_PACKAGE_OVERLAYS), \
-      $(addprefix $(dir)/, packages/apps/PartsBin/res))) \
-    $(wildcard $(foreach dir, $(DEVICE_PACKAGE_OVERLAYS), \
-      $(addprefix $(dir)/, packages/apps/PartsBin/res))))
-
-LOCAL_RESOURCE_DIR := $(package_resource_overlays) $(LOCAL_RESOURCE_DIR)
-
 LOCAL_JAVA_LIBRARIES := telephony-common
 
 LOCAL_PROGUARD_ENABLED := disabled
