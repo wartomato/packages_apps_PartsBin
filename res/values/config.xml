@@ -22,6 +22,9 @@
     <!-- Whether device supports disabling hwkeys -->
     <string name="pathHWKToggle"></string>
 
+    <!-- Path to devices FastCharge sysfs -->
+    <string name="pathFastChargeToggle"></string>
+
     <!-- Path to devices single-tap toggle file -->
     <string name="pathSTapToggle"></string>
 

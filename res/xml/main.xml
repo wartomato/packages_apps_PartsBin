@@ -103,6 +103,17 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="category_power"
+        android:title="@string/category_power">
+        <SwitchPreference
+            android:key="fastcharge"
+            android:summary="@string/fastcharge_summary"
+            android:title="@string/fastcharge_title"
+            android:icon="@drawable/ic_fastcharge"
+            android:persistent="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="category_vibrator"
         android:title="@string/category_vibrator">
         <com.aicp.device.VibratorSystemStrengthPreference

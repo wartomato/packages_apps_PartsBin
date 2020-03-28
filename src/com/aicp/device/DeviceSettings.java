@@ -56,6 +56,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String KEY_VIBRATOR_CATEGORY = "category_vibrator";
     private static final String KEY_SLIDER_CATEGORY = "category_slider";
     private static final String KEY_GESTURES_CATEGORY = "category_gestures";
+    private static final String KEY_POWER_CATEGORY = "category_power";
 
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
@@ -66,7 +67,7 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_ONEPLUSMODE_SWITCH = "oneplus";
     public static final String KEY_HWK_SWITCH = "hwk";
     public static final String KEY_STAP_SWITCH = "single_tap";
-
+    public static final String KEY_FASTCHARGE_SWITCH = "fastcharge";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
@@ -81,6 +82,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mDCDModeSwitch;
     private static TwoStatePreference mHWKSwitch;
     private static TwoStatePreference mSTapSwitch;
+    private static TwoStatePreference mFastChargeSwitch;
 
 
     @Override
@@ -152,6 +154,17 @@ public class DeviceSettings extends PreferenceFragment implements
             mDCDModeSwitch.setOnPreferenceChangeListener(new DCDModeSwitch(getContext()));
         } else {
             graphicsCategory.removePreference(mDCDModeSwitch);
+        }
+
+        PreferenceCategory powerCategory = (PreferenceCategory) findPreference(KEY_POWER_CATEGORY);
+        mFastChargeSwitch = (TwoStatePreference) findPreference(KEY_FASTCHARGE_SWITCH);
+        if (mFastChargeSwitch != null && FastChargeSwitch.isSupported(getContext())){
+            mFastChargeSwitch.setEnabled(true);
+            mFastChargeSwitch.setChecked(FastChargeSwitch.isCurrentlyEnabled(getContext()));
+            mFastChargeSwitch.setOnPreferenceChangeListener(new FastChargeSwitch(getContext()));
+        } else {
+            powerCategory.removePreference(mFastChargeSwitch);
+            powerCategory.getParent().removePreference(powerCategory);
         }
 
         PreferenceCategory vibratorCategory = (PreferenceCategory) findPreference(KEY_VIBRATOR_CATEGORY);
