@@ -57,6 +57,12 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String KEY_SLIDER_CATEGORY = "category_slider";
     private static final String KEY_GESTURES_CATEGORY = "category_gestures";
     private static final String KEY_POWER_CATEGORY = "category_power";
+    private static final String KEY_AUDIOGAINS_CATEGORY = "category_audiogains";
+
+    public static final String KEY_HEADPHONE_GAIN = "headphone_gain";
+    public static final String KEY_EARPIECE_GAIN = "earpiece_gain";
+    public static final String KEY_MIC_GAIN = "mic_gain";
+    public static final String KEY_SPEAKER_GAIN = "speaker_gain";
 
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
@@ -75,6 +81,12 @@ public class DeviceSettings extends PreferenceFragment implements
     private VibratorSystemStrengthPreference mVibratorSystemStrength;
     private VibratorCallStrengthPreference mVibratorCallStrength;
     private VibratorNotifStrengthPreference mVibratorNotifStrength;
+
+    private EarpieceGainPreference mEarpieceGainPref;
+    private HeadphoneGainPreference mHeadphoneGainPref;
+    private MicGainPreference mMicGainPref;
+    private SpeakerGainPreference mSpeakerGainPref;
+
     private ListPreference mSliderModeTop;
     private ListPreference mSliderModeCenter;
     private ListPreference mSliderModeBottom;
@@ -166,6 +178,38 @@ public class DeviceSettings extends PreferenceFragment implements
             powerCategory.removePreference(mFastChargeSwitch);
             powerCategory.getParent().removePreference(powerCategory);
         }
+
+        PreferenceCategory audiogainsCategory = (PreferenceCategory) findPreference(KEY_AUDIOGAINS_CATEGORY);
+        int audiogainsRemoved = 0;
+        mEarpieceGainPref = (EarpieceGainPreference) findPreference(KEY_EARPIECE_GAIN);
+        if (mEarpieceGainPref != null && mEarpieceGainPref.isSupported()) {
+            mEarpieceGainPref.setEnabled(true);
+        } else {
+            mEarpieceGainPref.getParent().removePreference(mEarpieceGainPref);
+            audiogainsRemoved += 1;
+        }
+        mHeadphoneGainPref = (HeadphoneGainPreference) findPreference(KEY_HEADPHONE_GAIN);
+        if (mHeadphoneGainPref != null && mHeadphoneGainPref.isSupported()) {
+            mHeadphoneGainPref.setEnabled(true);
+        } else {
+            mHeadphoneGainPref.getParent().removePreference(mHeadphoneGainPref);
+            audiogainsRemoved += 1;
+        }
+        mMicGainPref = (MicGainPreference) findPreference(KEY_MIC_GAIN);
+        if (mMicGainPref != null && mMicGainPref.isSupported()) {
+            mMicGainPref.setEnabled(true);
+        } else {
+            mMicGainPref.getParent().removePreference(mMicGainPref);
+            audiogainsRemoved += 1;
+        }
+        mSpeakerGainPref = (SpeakerGainPreference) findPreference(KEY_SPEAKER_GAIN);
+        if (mSpeakerGainPref != null && mSpeakerGainPref.isSupported()) {
+            mSpeakerGainPref.setEnabled(true);
+        } else {
+            mSpeakerGainPref.getParent().removePreference(mSpeakerGainPref);
+            audiogainsRemoved += 1;
+        }
+        if (audiogainsRemoved == 4) audiogainsCategory.getParent().removePreference(audiogainsCategory);
 
         PreferenceCategory vibratorCategory = (PreferenceCategory) findPreference(KEY_VIBRATOR_CATEGORY);
         int countVibRemoved = 0;
