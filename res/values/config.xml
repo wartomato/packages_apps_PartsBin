@@ -61,4 +61,36 @@
     <integer name="vibratorMinMV"></integer>
     <integer name="vibratorMaxMV"></integer>
     <integer name="vibratorDefaultMV"></integer>
+
+    <!-- Device earpiece gain sysfs -->
+    <string name="pathAudioEarpieceGain"></string>
+
+    <!-- Device earpiece gain min-max-default values -->
+    <integer name="audioEarpieceMin"></integer>
+    <integer name="audioEarpieceMax"></integer>
+    <integer name="audioEarpieceDefault"></integer>
+
+    <!-- Device audio mic gain sysfs -->
+    <string name="pathAudioMicGain"></string>
+
+    <!-- Device audio mic min-max-default values -->
+    <integer name="audioMicGainMin"></integer>
+    <integer name="audioMicGainMax"></integer>
+    <integer name="audioMicGainDefault"></integer>
+
+    <!-- Device audio headphone gain sysfs -->
+    <string name="pathAudioHeadphoneGain"></string>
+
+    <!-- Device audio headphone min-max-default values -->
+    <integer name="audioHeadphoneGainMin"></integer>
+    <integer name="audioHeadphoneGainMax"></integer>
+    <integer name="audioHeadphoneGainDefault"></integer>
+
+    <!-- Device audio speaker gain sysfs -->
+    <string name="pathAudioSpeakerGain"></string>
+
+    <!-- Device audio speaker min-max-default values -->
+    <integer name="audioSpeakerGainMin"></integer>
+    <integer name="audioSpeakerGainMax"></integer>
+    <integer name="audioSpeakerGainDefault"></integer>
 </resources>
