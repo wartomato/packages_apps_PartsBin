@@ -28,6 +28,8 @@ import androidx.preference.PreferenceManager;
 @TargetApi(24)
 public class HBMModeTileService extends TileService {
     private boolean enabled = false;
+    private String mHBMOffState;
+    private String mHBMOnState;
 
     @Override
     public void onDestroy() {
@@ -49,6 +51,8 @@ public class HBMModeTileService extends TileService {
         super.onStartListening();
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         enabled = HBMModeSwitch.isCurrentlyEnabled(this);
+        mHBMOffState = this.getResources().getString(R.string.hbmOFF);
+        mHBMOnState = this.getResources().getString(R.string.hbmON);
         getQsTile().setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         getQsTile().updateTile();
     }
@@ -63,7 +67,7 @@ public class HBMModeTileService extends TileService {
         super.onClick();
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         enabled = HBMModeSwitch.isCurrentlyEnabled(this);
-        Utils.writeValue(HBMModeSwitch.getFile(this), enabled ? "0" : "1");
+        Utils.writeValue(HBMModeSwitch.getFile(this), enabled ? mHBMOffState : mHBMOnState);
         sharedPrefs.edit().putBoolean(DeviceSettings.KEY_HBM_SWITCH, enabled ? false : true).commit();
         //getQsTile().setLabel(enabled ? "HBM off" : "HBM On");
         getQsTile().setState(enabled ? Tile.STATE_INACTIVE : Tile.STATE_ACTIVE);
