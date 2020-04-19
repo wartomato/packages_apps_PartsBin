@@ -96,7 +96,7 @@
         <SwitchPreference
             android:key="single_tap"
             android:summary="@string/single_tap_summary"
-            android:icon="@drawable/ic_ambient_display"
+            android:icon="@drawable/ic_singletap"
             android:title="@string/single_tap_title"
             android:persistent="false" />
 
