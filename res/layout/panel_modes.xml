@@ -13,7 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License
 -->
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res-auto"
@@ -34,9 +33,10 @@ limitations under the License
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:scaleType="centerCrop"
+            android:cropToPadding="true"
             android:src="@drawable/panel_mode_preview"
             android:contentDescription="@null" />
-    </LinearLayout>
+</LinearLayout>
 
     <ScrollView
         android:id="@+id/scroll_radio_group"
