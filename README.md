@@ -1,67 +1,88 @@
 # PartsBin
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](./LICENSE.txt)
 
-**A configurable collection of settings for OnePlus phones.**
+*A configurable collection of settings for OnePlus phones.*
 
-Currently supporting
+### Currently supported devices:
 
-	op5: Cheeseburger
+  * OnePlus 5:      cheeseburger
+  * OnePlus 5T:     dumpling
+  * OnePlus 6:      enchilada
+  * OnePlus 7:      guacamoleb
+  * OnePlus 7 Pro:  guacamole
+  * OnePlus 7T Pro: hotdog
 
-	op5t: Dumpling
+### Description
 
-	op6: Enchilada
-
-	op7: Guacamoleb
-
-Idea is to manage device specific settings from a common code base while allowing
-features/implementations unique to individual devices to coexist with common
-ones. Feature availability is controlled by adding various overlays to the device
+Based on OMNIROMs DeviceParts package, the idea is to manage device specific
+settings from a common code base while allowing features/implementations
+to be unique to individual devices to coexist with common ones.
+Feature availability is controlled by adding various overlays to the device
 tree for this package. Overlays are mostly sysfs paths controlling that particular
-feature. This application must have proper file access and sepolicy security contexts
-to those sysfs paths.
+feature.
+This application must have proper file access and sepolicy security contexts to those sysfs paths.
 
-Resources are used from https://github.com/eyosen/packages_resources_deviceparts
+Resource strings are used from https://github.com/AICP/packages_resources_deviceparts
 
-Currently supported features include:
+### Currently supported features include:
 
-	*Toggles*
+**Toggles**
 
 	HWKSwitch: Hardware keys swap toggle (supported on devices hw nav keys)
+
+	SoundTuner: En-/disable the proprietary SoundTuner
 
 	HBMSwitch: High Brightness Mode toggle with configurable off-on values
 
 	DCDSwitch: DC Dimming toggle
 
-	Panel Modes: sRGB, DCI-P3, WideColor, OnePlus
+	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Night
+
+	Display Refreshrate: Automatic, Manuak (60Hz, 90Hz)
 
 	Vibration Modes: System, Calls, Notifications
-	*if any vibration is used, 3 integer vibrator overlays **must** be defined
+	[Note: If any vibration is used, 3 integer vibrator overlays must be defined.]
 
-	*ScreenOffGestures*
+	Fastcharge: En-/diable USB 3.0 charging with max. 900mA
+
+**Screen-Off Gestures (with optional haptic feedback)**
 
 	Single Tap - to display ambient mode
 
-	Music Control - Play/Pause, skip to prev or next track
+	Music Control - Play/Pause ("||"), skip to previous ("<") or next (">") track
 
-	O-W-M-S Gestures - configurable
+	O-W-M-S-V-A Gestures - configurable
 
 	Left-Right-Up-Down Swipes - configurable
 
-	Down Arrow Gesture - configurable
+**Fingerprintreader Swiping Gestures**
 
-	*AlertSlider*
+	Left-Right-Up-Down Fingerprint-Swipes - configurable
+	[Note: Down-Swipe can also be disabled in favour of the AOSP build-in gesture.]
+
+**AlertSlider**
 
 	Top-Center-Bottom positions with position bubbles
 
 	Possible selections:
 
-	Ringer: Ring, vibrate, silent
+	  - Ringer: ring, vibrate, silent
+	  - Zen mode: priority only, alarms only, do not disturb
+	  - Flashlight
 
-	Zen mode: priority only, alarms only, do not disturb
+**Configurable overlays**
 
-	Flashlight
+	\<!-- Whether the device has hardware navigation buttons (true/false) -->
 
-**Configurable overlays.**
+	\<bool name="config_device_has_hw_nav_buttons">\</bool>
+
+	\<!-- Whether the device supports the prebuilt SoundTuner (true/false) -->
+
+	\<bool name="config_device_supports_soundtuner">\</bool>
+
+	\<!-- Whether device supports switching display refreshrates (true/false) -->
+
+	\<bool name="config_device_supports_switch_refreshrate">\</bool>
 
 	\<!-- Whether device supports disabling hwkeys -->
 
@@ -91,6 +112,10 @@ Currently supported features include:
 
 	\<string name="pathDCIModeToggle">\</string>
 
+	\<!-- Path to devices Nightmode toggle file -->
+
+	\<string name="pathNightModeToggle">\</string>
+
 	\<!-- Path to devices DCDMode toggle file -->
 
 	\<string name="pathDCDModeToggle">\</string>
@@ -118,3 +143,12 @@ Currently supported features include:
 	\<integer name="vibratorMaxMV">\</integer>
 
 	\<integer name="vibratorDefaultMV">\</integer>
+
+	\<!-- Path to the needed CameraMotorController nodes, if the device
+	      has set TARGET_MOTORIZED_CAMERA := true in its BoardConfig.mk -->
+
+	\<string name="pathCameraMotorEnableToggle">\</string>
+
+	\<string name="pathCameraMotorDirectionToggle">\</string>
+
+	\<string name="pathCameraMotorSWSwitchToggle">\</string>
