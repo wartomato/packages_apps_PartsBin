@@ -19,6 +19,8 @@
 
     <bool name="config_device_has_hw_nav_buttons">false</bool>
 
+    <bool name="config_device_supports_switch_refreshrate">false</bool>
+
     <!-- Whether device supports disabling hwkeys -->
     <string name="pathHWKToggle"></string>
 

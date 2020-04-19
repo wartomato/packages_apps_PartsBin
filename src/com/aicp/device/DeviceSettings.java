@@ -53,6 +53,7 @@ public class DeviceSettings extends PreferenceFragment implements
 
     private static final String KEY_BUTTON_CATEGORY = "category_buttons";
     private static final String KEY_GRAPHICS_CATEGORY = "category_graphics";
+    private static final String KEY_CATEGORY_REFRESH = "category_refresh";
     private static final String KEY_VIBRATOR_CATEGORY = "category_vibrator";
     private static final String KEY_SLIDER_CATEGORY = "category_slider";
     private static final String KEY_GESTURES_CATEGORY = "category_gestures";
@@ -72,9 +73,12 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_WIDE_SWITCH = "wide";
     public static final String KEY_NIGHT_SWITCH = "night";
     public static final String KEY_ONEPLUSMODE_SWITCH = "oneplus";
+
     public static final String KEY_HWK_SWITCH = "hwk";
     public static final String KEY_STAP_SWITCH = "single_tap";
     public static final String KEY_FASTCHARGE_SWITCH = "fastcharge";
+    public static final String KEY_REFRESH_RATE = "refresh_rate";
+    public static final String KEY_AUTO_REFRESH_RATE = "auto_refresh_rate";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
@@ -96,7 +100,8 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mHWKSwitch;
     private static TwoStatePreference mSTapSwitch;
     private static TwoStatePreference mFastChargeSwitch;
-
+    private static TwoStatePreference mRefreshRate;
+    private static SwitchPreference mAutoRefreshRate;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -167,6 +172,22 @@ public class DeviceSettings extends PreferenceFragment implements
             mDCDModeSwitch.setOnPreferenceChangeListener(new DCDModeSwitch(getContext()));
         } else {
             graphicsCategory.removePreference(mDCDModeSwitch);
+        }
+
+        boolean supports_refreshrate = getContext().getResources().
+                getBoolean(com.android.internal.R.bool.config_device_supports_switch_refreshrate);
+        if (supports_refreshrate) {
+            mAutoRefreshRate = (SwitchPreference) findPreference(KEY_AUTO_REFRESH_RATE);
+            mAutoRefreshRate.setChecked(AutoRefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
+            mAutoRefreshRate.setOnPreferenceChangeListener(new AutoRefreshRateSwitch(getContext()));
+
+            mRefreshRate = (SwitchPreference) findPreference(KEY_REFRESH_RATE);
+            mRefreshRate.setEnabled(!AutoRefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
+            mRefreshRate.setChecked(RefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
+            mRefreshRate.setOnPreferenceChangeListener(new RefreshRateSwitch(getContext()));
+        } else {
+            PreferenceCategory refreshCategory = (PreferenceCategory) findPreference(KEY_CATEGORY_REFRESH);
+            soundCategory.getParent().removePreference(refreshCategory);
         }
 
         PreferenceCategory powerCategory = (PreferenceCategory) findPreference(KEY_POWER_CATEGORY);
