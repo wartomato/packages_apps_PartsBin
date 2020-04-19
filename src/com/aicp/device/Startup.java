@@ -55,7 +55,7 @@ public class Startup extends BroadcastReceiver {
 
     private void maybeImportOldSettings(Context context) {
         ContentResolver resolver = context.getContentResolver();
-        boolean imported = Settings.System.getInt(resolver, "aicp_device_setting_imported", 0) != 0;
+        boolean imported = Settings.System.getInt(resolver, "omni_device_setting_imported", 0) != 0;
         if (!imported) {
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
             boolean enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_SRGB_SWITCH, false);
@@ -113,7 +113,7 @@ public class Startup extends BroadcastReceiver {
             Settings.System.putString(resolver, HeadphoneGainPreference.SETTINGS_KEY, audioHeadphoneGain);
             restoreDual(HeadphoneGainPreference.getFile(context), audioHeadphoneGain);
 
-            Settings.System.putInt(resolver, "aicp_device_setting_imported", 1);
+            Settings.System.putInt(resolver, "omni_device_setting_imported", 1);
         }
     }
 
