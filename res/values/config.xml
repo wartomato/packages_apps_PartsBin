@@ -33,6 +33,14 @@
     <string name="hbmOFF">"0"</string>
     <string name="hbmON">"1"</string>
 
+    <!-- Path to devices camera motor toggle files (examples shown further down) -->
+    <!-- CAMERA_MOTOR_ENABLE_PATH = "/sys/devices/platform/vendor/vendor:motor_pl/enable" -->
+    <string name="pathCameraMotorEnableToggle"></string>
+    <!-- CAMERA_MOTOR_DIRECTION_PATH = "/sys/devices/platform/vendor/vendor:motor_pl/direction" -->
+    <string name="pathCameraMotorDirectionToggle"></string>
+    <!-- CAMERA_MOTOR_SW_SWITCH = "/sys/devices/platform/vendor/vendor:motor_pl/sw_switch" -->
+    <string name="pathCameraMotorSWSwitchToggle"></string>
+
     <!-- Path to devices OnePlus Mode toggle file -->
     <string name="pathOnePlusModeToggle"></string>
 
