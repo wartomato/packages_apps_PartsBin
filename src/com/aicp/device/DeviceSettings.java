@@ -79,6 +79,8 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_FASTCHARGE_SWITCH = "fastcharge";
     public static final String KEY_REFRESH_RATE = "refresh_rate";
     public static final String KEY_AUTO_REFRESH_RATE = "auto_refresh_rate";
+    private static final String KEY_ENABLE_DOLBY_ATMOS = "enable_dolby_atmos";
+
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
@@ -102,6 +104,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mFastChargeSwitch;
     private static TwoStatePreference mRefreshRate;
     private static SwitchPreference mAutoRefreshRate;
+    private SwitchPreference mEnableDolbyAtmos;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -133,6 +136,16 @@ public class DeviceSettings extends PreferenceFragment implements
         } else {
             PreferenceCategory sliderCategory = (PreferenceCategory) findPreference(KEY_SLIDER_CATEGORY);
             sliderCategory.getParent().removePreference(sliderCategory);
+        }
+
+        boolean supports_soundtuner = getContext().getResources().
+                getBoolean(com.android.internal.R.bool.config_device_supports_soundtuner);
+        if (supports_soundtuner) {
+            mEnableDolbyAtmos = (SwitchPreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
+            mEnableDolbyAtmos.setOnPreferenceChangeListener(this);
+        } else {
+            PreferenceCategory soundCategory = (PreferenceCategory) findPreference(KEY_ENABLE_DOLBY_ATMOS);
+            soundCategory.getParent().removePreference(soundCategory);
         }
 
         mHWKSwitch = (TwoStatePreference) findPreference(KEY_HWK_SWITCH);

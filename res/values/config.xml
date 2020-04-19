@@ -21,6 +21,8 @@
 
     <bool name="config_device_supports_switch_refreshrate">false</bool>
 
+    <bool name="config_device_supports_soundtuner">false</bool>
+
     <!-- Whether device supports disabling hwkeys -->
     <string name="pathHWKToggle"></string>
 
