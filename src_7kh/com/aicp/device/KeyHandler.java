@@ -107,6 +107,14 @@ public class KeyHandler implements CustomKeyHandler {
              } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                  mDispOn = false;
                  onDisplayOff();
+             } else if (intent.getAction().equals(Intent.ACTION_USER_SWITCHED)) {
+                 int userId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, UserHandle.USER_NULL);
+                 if (userId == UserHandle.USER_SYSTEM && mRestoreUser) {
+                     if (DEBUG) Log.i(TAG, "ACTION_USER_SWITCHED to system");
+                     Startup.restoreAfterUserSwitch(context);
+                } else {
+                    mRestoreUser = true;
+                }
              }
          }
     };
