@@ -19,6 +19,9 @@
 
     <bool name="config_device_has_hw_nav_buttons">false</bool>
 
+    <!-- Whether device supports offscreen gestures -->
+    <bool name="config_device_supports_gestures">true</bool>
+
     <!-- Whether device supports disabling hwkeys -->
     <string name="pathHWKToggle"></string>
 
