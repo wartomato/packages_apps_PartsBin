@@ -126,10 +126,11 @@ public class Startup extends BroadcastReceiver {
     public static void restoreAfterUserSwitch(Context context) {
         boolean supportsGestures = context.getResources().getBoolean(R.bool.config_device_supports_gestures);
         ContentResolver resolver = context.getContentResolver();
+        boolean enabled;
         if (supportsGestures) {
             // music playback
             final boolean musicPlaybackEnabled = Settings.System.getInt(resolver,
-                    "Settings.System."+KeyHandler.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0) == 1;
+                    "Settings.System."+DeviceSettings.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0) == 1;
             restore(getGestureFile(GestureSettings.KEY_MUSIC_START), musicPlaybackEnabled);
             restore(getGestureFile(GestureSettings.KEY_MUSIC_TRACK_NEXT), musicPlaybackEnabled);
             restore(getGestureFile(GestureSettings.KEY_MUSIC_TRACK_PREV), musicPlaybackEnabled);
@@ -141,7 +142,7 @@ public class Startup extends BroadcastReceiver {
                 value = AppSelectListPreference.CAMERA_ENTRY;
                 Settings.System.putString(resolver, mapping, value);
             }
-            boolean enabled = !value.equals(AppSelectListPreference.DISABLED_ENTRY);
+            enabled = !value.equals(AppSelectListPreference.DISABLED_ENTRY);
             restore(getGestureFile(GestureSettings.KEY_CIRCLE_APP), enabled);
 
             // down arrow -> flashlight

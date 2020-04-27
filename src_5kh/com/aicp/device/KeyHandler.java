@@ -78,8 +78,6 @@ public class KeyHandler implements CustomKeyHandler {
     private static final String FPC_CONTROL_PATH = "/sys/devices/soc/soc:fpc_fpc1020/proximity_state";
     private static final String FPC_KEY_CONTROL_PATH = "/sys/devices/soc/soc:fpc_fpc1020/key_disable";
     private static final String GOODIX_CONTROL_PATH = "/sys/devices/soc/soc:goodix_fp/proximity_state";
-    public static final String GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME = "OFF_GESTURE_HAPTIC_ENABLE";
-    public static final String GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME = "MUSIC_PLAYBACK_GESTURE_ENABLE";
 
     private static final boolean sIsOnePlus5t = android.os.Build.DEVICE.equals("dumpling");
 
@@ -272,7 +270,7 @@ public class KeyHandler implements CustomKeyHandler {
             isFpgesture = true;
             if (!launchSpecialActions(value) && !isCameraLaunchEvent(event)) {
                     AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                              mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, Constants.GESTURE_HAPTIC_DURATION);
+                              mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, Constants.GESTURE_HAPTIC_DURATION);
                     Intent intent = createIntent(value);
                     if (DEBUG) Log.i(TAG, "intent = " + intent);
                     mContext.startActivity(intent);
@@ -356,7 +354,7 @@ public class KeyHandler implements CustomKeyHandler {
             if (DEBUG) Log.i(TAG, "isActivityLaunchEvent " + event.getScanCode() + value);
             if (!launchSpecialActions(value)) {
                 AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                          mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, Constants.GESTURE_HAPTIC_DURATION);
+                          mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, Constants.GESTURE_HAPTIC_DURATION);
                 Intent intent = createIntent(value);
                 return intent;
             }
@@ -524,26 +522,26 @@ public class KeyHandler implements CustomKeyHandler {
 
     private boolean launchSpecialActions(String value) {
         final boolean musicPlaybackEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
-                "Settings.System."+GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
+                "Settings.System."+DeviceSettings.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
         /* handle music playback gesture if enabled */
         if (musicPlaybackEnabled) {
             switch (value) {
                 case AppSelectListPreference.MUSIC_PLAY_ENTRY:
                     mGestureWakeLock.acquire(Constants.GESTURE_WAKELOCK_DURATION);
-                    AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,Constants.GESTURE_HAPTIC_DURATION);
+                    AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,Constants.GESTURE_HAPTIC_DURATION);
                     dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
                     return true;
                 case AppSelectListPreference.MUSIC_NEXT_ENTRY:
                     if (isMusicActive()) {
                         mGestureWakeLock.acquire(Constants.GESTURE_WAKELOCK_DURATION);
-                        AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,Constants.GESTURE_HAPTIC_DURATION);
+                        AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,Constants.GESTURE_HAPTIC_DURATION);
                         dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_NEXT);
                     }
                     return true;
                 case AppSelectListPreference.MUSIC_PREV_ENTRY:
                     if (isMusicActive()) {
                         mGestureWakeLock.acquire(Constants.GESTURE_WAKELOCK_DURATION);
-                        AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,Constants.GESTURE_HAPTIC_DURATION);
+                        AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,Constants.GESTURE_HAPTIC_DURATION);
                         dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
                     }
                     return true;
@@ -558,13 +556,13 @@ public class KeyHandler implements CustomKeyHandler {
                     if (mUseSliderTorch) {
                         service.toggleCameraFlashState(mTorchState);
                         AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                                  mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                                  mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                                           Constants.GESTURE_HAPTIC_DURATION);
                         return true;
                     } else {
                         service.toggleCameraFlash();
                         AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                                  mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                                  mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                                           Constants.GESTURE_HAPTIC_DURATION);
                         return true;
                     }
@@ -574,43 +572,43 @@ public class KeyHandler implements CustomKeyHandler {
            }
         } else if (value.equals(AppSelectListPreference.VOLUME_UP_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             mAudioManager.adjustSuggestedStreamVolume(AudioManager.ADJUST_RAISE,AudioManager.USE_DEFAULT_STREAM_TYPE,AudioManager.FLAG_SHOW_UI);
             return true;
         } else if (value.equals(AppSelectListPreference.VOLUME_DOWN_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             mAudioManager.adjustSuggestedStreamVolume(AudioManager.ADJUST_LOWER,AudioManager.USE_DEFAULT_STREAM_TYPE,AudioManager.FLAG_SHOW_UI);
             return true;
         } else if (value.equals(AppSelectListPreference.BROWSE_SCROLL_DOWN_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             AicpUtils.sendKeycode(KeyEvent.KEYCODE_PAGE_DOWN);
             return true;
         } else if (value.equals(AppSelectListPreference.BROWSE_SCROLL_UP_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             AicpUtils.sendKeycode(KeyEvent.KEYCODE_PAGE_UP);
             return true;
         } else if (value.equals(AppSelectListPreference.NAVIGATE_BACK_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             AicpUtils.sendKeycode(KeyEvent.KEYCODE_BACK);
             return true;
         } else if (value.equals(AppSelectListPreference.NAVIGATE_HOME_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             AicpUtils.sendKeycode(KeyEvent.KEYCODE_HOME);
             return true;
         } else if (value.equals(AppSelectListPreference.NAVIGATE_RECENT_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false,
-                      mContext, GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                      mContext, DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                           Constants.GESTURE_HAPTIC_DURATION);
             AicpUtils.sendKeycode(KeyEvent.KEYCODE_APP_SWITCH);
             return true;

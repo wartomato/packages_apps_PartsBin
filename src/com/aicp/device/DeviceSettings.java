@@ -43,6 +43,9 @@ import com.android.internal.util.aicp.PackageUtils;
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
+    public static final String GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME = "OFF_GESTURE_HAPTIC_ENABLE";
+    public static final String GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME = "MUSIC_PLAYBACK_GESTURE_ENABLE";
+
     public static final String KEY_SYSTEM_VIBSTRENGTH = "vib_system_strength";
     public static final String KEY_CALL_VIBSTRENGTH = "vib_call_strength";
     public static final String KEY_NOTIF_VIBSTRENGTH = "vib_notif_strength";
@@ -112,7 +115,7 @@ public class DeviceSettings extends PreferenceFragment implements
 
         boolean hasAlertSlider = getContext().getResources().
                 getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
-        boolean supportsGestures = context.getResources().getBoolean(R.bool.config_device_supports_gestures);
+        boolean supportsGestures = getContext().getResources().getBoolean(R.bool.config_device_supports_gestures);
 
         if (hasAlertSlider) {
             mSliderModeTop = (ListPreference) findPreference(KEY_SLIDER_MODE_TOP);
