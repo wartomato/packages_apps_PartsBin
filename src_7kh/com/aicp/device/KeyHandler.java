@@ -76,8 +76,6 @@ public class KeyHandler implements CustomKeyHandler {
     private static final boolean DEBUG_SENSOR = false;
 
     private static final String KEY_CONTROL_PATH = "/proc/touchpanel/key_disable";
-    public static final String GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME = "OFF_GESTURE_HAPTIC_ENABLE";
-    public static final String GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME = "MUSIC_PLAYBACK_GESTURE_ENABLE";
 
     protected final Context mContext;
     private final PowerManager mPowerManager;
@@ -197,7 +195,7 @@ public class KeyHandler implements CustomKeyHandler {
             if (DEBUG) Log.i(TAG, "isActivityLaunchEvent " + event.getScanCode() + value);
             if (!launchSpecialActions(value)) {
                 AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,
-                      GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, Constants.GESTURE_HAPTIC_DURATION);
+                      DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, Constants.GESTURE_HAPTIC_DURATION);
                 Intent intent = createIntent(value);
                 return intent;
             }
@@ -342,14 +340,14 @@ public class KeyHandler implements CustomKeyHandler {
 
     private boolean launchSpecialActions(String value) {
         final boolean musicPlaybackEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
-                "Settings.System."+GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
+                "Settings.System."+DeviceSettings.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
         /* handle music playback gesture if enabled */
         if (musicPlaybackEnabled) {
             switch (value) {
                 case AppSelectListPreference.MUSIC_PLAY_ENTRY:
                     mGestureWakeLock.acquire(Constants.GESTURE_WAKELOCK_DURATION);
                     AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,
-                                  GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                                  DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                                   Constants.GESTURE_HAPTIC_DURATION);
                     dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
                     return true;
@@ -357,7 +355,7 @@ public class KeyHandler implements CustomKeyHandler {
                     if (isMusicActive()) {
                         mGestureWakeLock.acquire(Constants.GESTURE_WAKELOCK_DURATION);
                         AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,
-                                  GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                                  DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                                   Constants.GESTURE_HAPTIC_DURATION);
                         dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_NEXT);
                     }
@@ -366,7 +364,7 @@ public class KeyHandler implements CustomKeyHandler {
                     if (isMusicActive()) {
                         mGestureWakeLock.acquire(Constants.GESTURE_WAKELOCK_DURATION);
                         AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,
-                                  GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                                  DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                                   Constants.GESTURE_HAPTIC_DURATION);
                         dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
                     }
@@ -385,7 +383,7 @@ public class KeyHandler implements CustomKeyHandler {
                     } else {*/
                         service.toggleCameraFlash();
                         AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,
-                                  GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                                  DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                                   Constants.GESTURE_HAPTIC_DURATION);
                         return true;
                    // }
@@ -395,7 +393,7 @@ public class KeyHandler implements CustomKeyHandler {
             }
         } else if (value.equals(AppSelectListPreference.AMBIENT_DISPLAY_ENTRY)) {
             AicpVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext,
-                        GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
+                        DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME,
                         Constants.GESTURE_HAPTIC_DURATION);
             launchDozePulse();
             return true;
