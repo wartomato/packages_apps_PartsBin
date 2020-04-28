@@ -76,7 +76,10 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_ONEPLUSMODE_SWITCH = "oneplus";
     public static final String KEY_HWK_SWITCH = "hwk";
     public static final String KEY_STAP_SWITCH = "single_tap";
+    public static final String KEY_DT2W_SWITCH = "double_tap_to_wake";
+    public static final String KEY_S2W_SWITCH = "sweep_to_wake";
     public static final String KEY_FASTCHARGE_SWITCH = "fastcharge";
+    public static final String KEY_OFFSCREEN_GESTURES = "gesture_category";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
@@ -93,11 +96,14 @@ public class DeviceSettings extends PreferenceFragment implements
     private ListPreference mSliderModeTop;
     private ListPreference mSliderModeCenter;
     private ListPreference mSliderModeBottom;
+    private Preference mOffScreenGestures;
     private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mDCDModeSwitch;
     private static TwoStatePreference mHWKSwitch;
     private static TwoStatePreference mSTapSwitch;
     private static TwoStatePreference mFastChargeSwitch;
+    private static TwoStatePreference mDoubleTapToWakeSwitch;
+    private static TwoStatePreference mSweepToWakeSwitch;
 
 
     @Override
@@ -145,18 +151,40 @@ public class DeviceSettings extends PreferenceFragment implements
         }
 
         PreferenceCategory gesturesCategory = (PreferenceCategory) findPreference(KEY_GESTURES_CATEGORY);
-        if (supportsGestures) {
-            mSTapSwitch = (TwoStatePreference) findPreference(KEY_STAP_SWITCH);
-            if (mSTapSwitch != null && SingleTapSwitch.isSupported(getContext())){
-                mSTapSwitch.setEnabled(true);
-                mSTapSwitch.setChecked(SingleTapSwitch.isCurrentlyEnabled(getContext()));
-                mSTapSwitch.setOnPreferenceChangeListener(new SingleTapSwitch(getContext()));
-            } else {
-                gesturesCategory.removePreference(mSTapSwitch);
-            }
+        mOffScreenGestures = (Preference) findPreference(KEY_OFFSCREEN_GESTURES);
+        int gesturesRemoved = 0;
+        mSTapSwitch = (TwoStatePreference) findPreference(KEY_STAP_SWITCH);
+        if (mSTapSwitch != null && SingleTapSwitch.isSupported(getContext())){
+            mSTapSwitch.setEnabled(true);
+            mSTapSwitch.setChecked(SingleTapSwitch.isCurrentlyEnabled(getContext()));
+            mSTapSwitch.setOnPreferenceChangeListener(new SingleTapSwitch(getContext()));
         } else {
-            gesturesCategory.getParent().removePreference(gesturesCategory);
+            gesturesCategory.removePreference(mSTapSwitch);
+            gesturesRemoved += 1;
         }
+        mDoubleTapToWakeSwitch = (TwoStatePreference) findPreference(KEY_DT2W_SWITCH);
+        if (mDoubleTapToWakeSwitch != null && DoubleTapToWakeSwitch.isSupported(getContext())){
+            mDoubleTapToWakeSwitch.setEnabled(true);
+            mDoubleTapToWakeSwitch.setChecked(DoubleTapToWakeSwitch.isCurrentlyEnabled(getContext()));
+            mDoubleTapToWakeSwitch.setOnPreferenceChangeListener(new DoubleTapToWakeSwitch(getContext()));
+        } else {
+            gesturesCategory.removePreference(mDoubleTapToWakeSwitch);
+            gesturesRemoved += 1;
+        }
+        mSweepToWakeSwitch = (TwoStatePreference) findPreference(KEY_S2W_SWITCH);
+        if (mSweepToWakeSwitch != null && SweepToWakeSwitch.isSupported(getContext())){
+            mSweepToWakeSwitch.setEnabled(true);
+            mSweepToWakeSwitch.setChecked(SweepToWakeSwitch.isCurrentlyEnabled(getContext()));
+            mSweepToWakeSwitch.setOnPreferenceChangeListener(new SweepToWakeSwitch(getContext()));
+        } else {
+            gesturesCategory.removePreference(mSweepToWakeSwitch);
+            gesturesRemoved += 1;
+        }
+        if (!supportsGestures) {
+            mOffScreenGestures.getParent().removePreference(mOffScreenGestures);
+            gesturesRemoved += 1;
+        }
+        if (gesturesRemoved == 4) gesturesCategory.getParent().removePreference(gesturesCategory);
 
         PreferenceCategory graphicsCategory = (PreferenceCategory) findPreference(KEY_GRAPHICS_CATEGORY);
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);

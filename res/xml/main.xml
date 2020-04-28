@@ -54,6 +54,20 @@
             android:title="@string/single_tap_title"
             android:persistent="false" />
 
+        <SwitchPreference
+            android:key="double_tap_to_wake"
+            android:summary="@string/double_tap_summary"
+            android:icon="@drawable/ic_ambient_display"
+            android:title="@string/double_tap_title"
+            android:persistent="false" />
+
+        <SwitchPreference
+            android:key="sweep_to_wake"
+            android:summary="@string/sweep_to_wake_summary"
+            android:icon="@drawable/ic_ambient_display"
+            android:title="@string/sweep_to_wake_title"
+            android:persistent="false" />
+
         <Preference
             android:key="gesture_category"
             android:title="@string/category_gestures_title"

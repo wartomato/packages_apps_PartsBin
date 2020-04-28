@@ -31,6 +31,12 @@
     <!-- Path to devices single-tap toggle file -->
     <string name="pathSTapToggle"></string>
 
+    <!-- Path to devices doubletap to wake toggle file -->
+    <string name="pathDoubleTapToWakeToggle"></string>
+
+    <!-- Path to devices sweep to wake toggle file -->
+    <string name="pathSweepToWakeToggle"></string>
+
     <!-- Path to devices High Brigness Mode toggle file -->
     <string name="pathHBMModeToggle"></string>
     <string name="hbmOFF">"0"</string>
