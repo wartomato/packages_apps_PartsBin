@@ -86,6 +86,7 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_AUTO_REFRESH_RATE = "auto_refresh_rate";
     private static final String KEY_ENABLE_DOLBY_ATMOS = "enable_dolby_atmos";
     public static final String KEY_OFFSCREEN_GESTURES = "gesture_category";
+    public static final String KEY_PANEL_SETTINGS = "panel_category";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
@@ -103,6 +104,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private ListPreference mSliderModeCenter;
     private ListPreference mSliderModeBottom;
     private Preference mOffScreenGestures;
+    private Preference mPanelSettings;
     private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mDCDModeSwitch;
     private static TwoStatePreference mHWKSwitch;
@@ -121,6 +123,7 @@ public class DeviceSettings extends PreferenceFragment implements
         boolean hasAlertSlider = getContext().getResources().
                 getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
         boolean supportsGestures = getContext().getResources().getBoolean(R.bool.config_device_supports_gestures);
+        boolean supportsPanels = getContext().getResources().getBoolean(R.bool.config_device_supports_panels);
 
         if (hasAlertSlider) {
             mSliderModeTop = (ListPreference) findPreference(KEY_SLIDER_MODE_TOP);
@@ -205,6 +208,8 @@ public class DeviceSettings extends PreferenceFragment implements
         if (gesturesRemoved == 4) gesturesCategory.getParent().removePreference(gesturesCategory);
 
         PreferenceCategory graphicsCategory = (PreferenceCategory) findPreference(KEY_GRAPHICS_CATEGORY);
+        mPanelSettings = (Preference) findPreference(KEY_PANEL_SETTINGS);
+        int graphicsRemoved = 0;
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
         if (mHBMModeSwitch != null && HBMModeSwitch.isSupported(getContext())){
             mHBMModeSwitch.setEnabled(true);
@@ -212,6 +217,7 @@ public class DeviceSettings extends PreferenceFragment implements
             mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch(getContext()));
         } else {
             graphicsCategory.removePreference(mHBMModeSwitch);
+            graphicsRemoved += 1;
         }
 
         mDCDModeSwitch = (TwoStatePreference) findPreference(KEY_DCD_SWITCH);
@@ -221,7 +227,13 @@ public class DeviceSettings extends PreferenceFragment implements
             mDCDModeSwitch.setOnPreferenceChangeListener(new DCDModeSwitch(getContext()));
         } else {
             graphicsCategory.removePreference(mDCDModeSwitch);
+            graphicsRemoved += 1;
         }
+        if (!supportsPanels) {
+            mPanelSettings.getParent().removePreference(mPanelSettings);
+            graphicsRemoved += 1;
+        }
+        if (graphicsRemoved == 3) graphicsCategory.getParent().removePreference(graphicsCategory);
 
         boolean supports_refreshrate = getContext().getResources().
                 getBoolean(com.android.internal.R.bool.config_device_supports_switch_refreshrate);
