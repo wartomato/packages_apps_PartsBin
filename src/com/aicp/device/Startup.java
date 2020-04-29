@@ -86,28 +86,28 @@ public class Startup extends BroadcastReceiver {
             enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_WIDE_SWITCH, false);
             Settings.System.putInt(resolver, WideModeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
 
-            String vibrSystemStrength = sharedPrefs.getString(DeviceSettings.KEY_SYSTEM_VIBSTRENGTH, VibratorSystemStrengthPreference.getDefaultValue());
+            String vibrSystemStrength = sharedPrefs.getString(DeviceSettings.KEY_SYSTEM_VIBSTRENGTH, VibratorSystemStrengthPreference.getDefaultValue(context));
             Settings.System.putString(resolver, VibratorSystemStrengthPreference.SETTINGS_KEY, vibrSystemStrength);
 
-            String vibrCallStrength = sharedPrefs.getString(DeviceSettings.KEY_CALL_VIBSTRENGTH, VibratorCallStrengthPreference.getDefaultValue());
+            String vibrCallStrength = sharedPrefs.getString(DeviceSettings.KEY_CALL_VIBSTRENGTH, VibratorCallStrengthPreference.getDefaultValue(context));
             Settings.System.putString(resolver, VibratorCallStrengthPreference.SETTINGS_KEY, vibrCallStrength);
 
-            String vibrNotifStrength = sharedPrefs.getString(DeviceSettings.KEY_NOTIF_VIBSTRENGTH, VibratorNotifStrengthPreference.getDefaultValue());
+            String vibrNotifStrength = sharedPrefs.getString(DeviceSettings.KEY_NOTIF_VIBSTRENGTH, VibratorNotifStrengthPreference.getDefaultValue(context));
             Settings.System.putString(resolver, VibratorNotifStrengthPreference.SETTINGS_KEY, vibrNotifStrength);
 
-            String audioEarpieceGain = sharedPrefs.getString(DeviceSettings.KEY_EARPIECE_GAIN, EarpieceGainPreference.getDefaultValue());
+            String audioEarpieceGain = sharedPrefs.getString(DeviceSettings.KEY_EARPIECE_GAIN, EarpieceGainPreference.getDefaultValue(context));
             Settings.System.putString(resolver, EarpieceGainPreference.SETTINGS_KEY, audioEarpieceGain);
             restore(EarpieceGainPreference.getFile(context), audioEarpieceGain);
 
-            String audioMicGain = sharedPrefs.getString(DeviceSettings.KEY_MIC_GAIN, MicGainPreference.getDefaultValue());
+            String audioMicGain = sharedPrefs.getString(DeviceSettings.KEY_MIC_GAIN, MicGainPreference.getDefaultValue(context));
             Settings.System.putString(resolver, MicGainPreference.SETTINGS_KEY, audioMicGain);
             restore(MicGainPreference.getFile(context), audioMicGain);
 
-            String audioSpeakerGain = sharedPrefs.getString(DeviceSettings.KEY_SPEAKER_GAIN, SpeakerGainPreference.getDefaultValue());
+            String audioSpeakerGain = sharedPrefs.getString(DeviceSettings.KEY_SPEAKER_GAIN, SpeakerGainPreference.getDefaultValue(context));
             Settings.System.putString(resolver, SpeakerGainPreference.SETTINGS_KEY, audioSpeakerGain);
             restore(SpeakerGainPreference.getFile(context), audioSpeakerGain);
 
-            String audioHeadphoneGain = sharedPrefs.getString(DeviceSettings.KEY_HEADPHONE_GAIN, HeadphoneGainPreference.getDefaultValue());
+            String audioHeadphoneGain = sharedPrefs.getString(DeviceSettings.KEY_HEADPHONE_GAIN, HeadphoneGainPreference.getDefaultValue(context));
             Settings.System.putString(resolver, HeadphoneGainPreference.SETTINGS_KEY, audioHeadphoneGain);
             restoreDual(HeadphoneGainPreference.getFile(context), audioHeadphoneGain);
 
