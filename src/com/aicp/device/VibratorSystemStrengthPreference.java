@@ -28,10 +28,7 @@ public class VibratorSystemStrengthPreference extends VibratorStrengthPreference
     protected static long testVibrationPattern[] = {0,250};
     protected static String SETTINGS_KEY = DeviceSettings.KEY_SETTINGS_PREFIX + DeviceSettings.KEY_SYSTEM_VIBSTRENGTH;
 
-    private Vibrator mVibrator;
     private String mFileName;
-    private int mMinValue;
-    private int mMaxValue;
 
     public VibratorSystemStrengthPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,7 +39,6 @@ public class VibratorSystemStrengthPreference extends VibratorStrengthPreference
         mMinValue = (int) context.getResources().getInteger(R.integer.vibratorMinMV);
         mMaxValue = (int) context.getResources().getInteger(R.integer.vibratorMaxMV);
         DEFAULT_VALUE = getDefaultValue(context);
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         setLayoutResource(R.layout.preference_seek_bar);
         restore(context);
     }
