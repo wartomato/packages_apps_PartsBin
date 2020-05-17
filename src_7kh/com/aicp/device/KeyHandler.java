@@ -69,9 +69,6 @@ import com.android.internal.util.aicp.AicpVibe;
 import com.android.internal.util.aicp.CustomKeyHandler;
 import com.android.internal.statusbar.IStatusBarService;
 
-import com.aicp.device.CameraMotorController;
-import vendor.oneplus.camera.CameraHIDL.V1_0.IOnePlusCameraProvider;
-
 public class KeyHandler implements CustomKeyHandler {
 
     private static final String TAG = "KeyHandler";
@@ -79,9 +76,6 @@ public class KeyHandler implements CustomKeyHandler {
     private static final boolean DEBUG_SENSOR = false;
 
     private static final String KEY_CONTROL_PATH = "/proc/touchpanel/key_disable";
-
-    private static final boolean sIsOnePlus7pro = android.os.Build.DEVICE.equals("guacamole");
-    private static final boolean sIsOnePlus7Tpro = android.os.Build.DEVICE.equals("hotdog");
 
     protected final Context mContext;
     private final PowerManager mPowerManager;
@@ -417,19 +411,10 @@ public class KeyHandler implements CustomKeyHandler {
 
     private void onDisplayOn() {
         if (DEBUG) Log.i(TAG, "Display on");
-
-        if (sIsOnePlus7pro || sIsOnePlus7Tpro) {
-            //mMotorHandler.removeCallbacksAndMessages(mCameraMotorSwitch);
-            CameraMotorController.toggleCameraSwitch(true);
-        }
     }
 
     private void onDisplayOff() {
         if (DEBUG) Log.i(TAG, "Display off");
-
-        if (sIsOnePlus7pro || sIsOnePlus7Tpro) {
-            CameraMotorController.toggleCameraSwitch(false);
-        }
     }
 
     private void launchDozePulse() {

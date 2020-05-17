@@ -19,12 +19,6 @@ endif
 ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),guacamole guacamoleb hotdog))
     LOCAL_SRC_FILES += $(call all-java-files-under, src_7kh)
 endif
-
-ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),guacamole hotdog))
-LOCAL_STATIC_JAVA_LIBRARIES := \
-    vendor.oneplus.camera.CameraHIDL-V1.0-java
-endif
-
 LOCAL_PACKAGE_NAME := PartsBin
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVATE_PLATFORM_APIS := true
