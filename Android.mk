@@ -1,5 +1,5 @@
 LOCAL_PATH := $(call my-dir)
-ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),cheeseburger dumpling enchilada fajita guacamoleb hammerhead))
+ifeq ($(TARGET_DEVICE),$(filter $(TARGET_DEVICE),cheeseburger dumpling enchilada fajita guacamoleb hammerhead hotdog))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
