@@ -11,6 +11,7 @@
   * OnePlus 7:      guacamoleb
   * OnePlus 7 Pro:  guacamole
   * OnePlus 7T Pro: hotdog
+  * Hammerhead:     Google Nexus 5
 
 ### Description
 
@@ -26,32 +27,40 @@ Resource strings are used from https://github.com/AICP/packages_resources_device
 
 ### Currently supported features include:
 
-**Toggles**
+**Toggles and Paths**
+
+_Note that defining paths needs support in the kernel! Thus the features might not work, if you are using a custom kernel._
 
 	HWKSwitch: Hardware keys swap toggle (supported on devices hw nav keys)
 
-	SoundTuner: En-/disable the proprietary SoundTuner
+	Offscreen-gestures: Only set to true, if the device supports Screengestures while the display is off.
+
+	Doubletap to wake (DT2W): En-/disable waking up the display by tapping on it two times.
+
+	Sweep to wake (S2W): En-/disable waking up the display by swiping from left to right in the lower section.
+
+	SoundTuner: En-/disable the proprietary SoundTuner (OnePlus specific)
 
 	HBMSwitch: High Brightness Mode toggle with configurable off-on values
 
-	DCDSwitch: DC Dimming toggle
+	DCDSwitch: DC-Dimming toggle
 
-	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Night
+	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Nightmode
 
-	Display Refreshrate: Automatic, Manuak (60Hz, 90Hz)
+	Display Refreshrate: Automatic, Manual (60Hz, 90Hz)
 
 	Vibration Modes: System, Calls, Notifications
-	[Note: If any vibration is used, 3 integer vibrator overlays must be defined.]
+	[Note: For a vibration to work the corresponding integer vibrator overlays must be defined.]
 
-	Fastcharge: En-/diable USB 3.0 charging with max. 900mA
+	Fastcharge: En-/disable USB charging with max. 900mA
 
 **Screen-Off Gestures (with optional haptic feedback)**
 
-	Single Tap - to display ambient mode
+	SingleTap - to display ambient mode
 
 	Music Control - Play/Pause ("||"), skip to previous ("<") or next (">") track
 
-	O-W-M-S-V-A Gestures - configurable
+	Letter "O", "W", "M", "S", "V", "A" Gestures - configurable
 
 	Left-Right-Up-Down Swipes - configurable
 
@@ -73,82 +82,62 @@ Resource strings are used from https://github.com/AICP/packages_resources_device
 **Configurable overlays**
 
 	\<!-- Whether the device has hardware navigation buttons (true/false) -->
-
 	\<bool name="config_device_has_hw_nav_buttons">\</bool>
 
-	\<!-- Whether the device supports the prebuilt SoundTuner (true/false) -->
+	\<!-- Whether the device supports offscreen-gestures (true/false) -->
+	\<bool name="config_device_supports_gestures">\</bool>
 
+	\<!-- Whether the device supports the prebuilt SoundTuner (true/false) -->
 	\<bool name="config_device_supports_soundtuner">\</bool>
 
 	\<!-- Whether device supports switching display refreshrates (true/false) -->
-
 	\<bool name="config_device_supports_switch_refreshrate">\</bool>
 
 	\<!-- Whether device supports disabling hwkeys -->
-
 	\<string name="pathHWKToggle">\</string>
 
 	\<!-- Path to devices single-tap toggle file -->
-
 	\<string name="pathSTapToggle">\</string>
 
-	\<!-- Path to devices High Brigness Mode toggle file -->
+	\<!-- Path to devices doubletap to wake toggle file -->
+	\<string name="pathDoubleTapToWakeToggle">\</string>
 
+	\<!-- Path to devices sweep to wake toggle file -->
+	\<string name="pathSweepToWakeToggle">\</string>
+
+	\<!-- Path to devices High Brightness Mode toggle file -->
 	\<string name="pathHBMModeToggle">\</string>
-
 	\<string name="hbmOFF">"0"\</string>
-
 	\<string name="hbmON">"1"\</string>
 
-	\<!-- Path to devices High Brigness Mode toggle file -->
-
+	\<!-- Path to devices OnePlus Mode toggle file -->
 	\<string name="pathOnePlusModeToggle">\</string>
 
 	\<!-- Path to devices SRGBMode toggle file -->
-
 	\<string name="pathSRGBModeToggle">\</string>
 
-	\<!-- Path to devices DCIMode toggle file -->
-
+	\<!-- Path to devices DCI-P3 Mode toggle file -->
 	\<string name="pathDCIModeToggle">\</string>
 
 	\<!-- Path to devices Nightmode toggle file -->
-
 	\<string name="pathNightModeToggle">\</string>
 
-	\<!-- Path to devices DCDMode toggle file -->
-
+	\<!-- Path to devices DC-Dimming Mode toggle file -->
 	\<string name="pathDCDModeToggle">\</string>
 
 	\<!-- Path to devices WideMode toggle file -->
-
 	\<string name="pathWideModeToggle">\</string>
 
-	\<!-- Whether device allow changing system vibrationlevels -->
-
+	\<!-- Path to devices system vibrationlevels -->
 	\<string name="pathSystemVibStrength">\</string>
 
-	\<!-- Whether device allow changing calls vibrationlevels -->
-
+	\<!-- Path to devices calls vibrationlevels -->
 	\<string name="pathCallVibStrength">\</string>
 
-	\<!-- Whether device allow changing notification vibrationlevels -->
-
+	\<!-- Path to devices notification vibrationlevels -->
 	\<string name="pathNotifVibStrength">\</string>
 
 	\<!-- Device vibrator min-max-default values -->
-
 	\<integer name="vibratorMinMV">\</integer>
-
 	\<integer name="vibratorMaxMV">\</integer>
-
 	\<integer name="vibratorDefaultMV">\</integer>
-
-	\<!-- Path to the needed CameraMotorController nodes, if the device
-	      has set TARGET_MOTORIZED_CAMERA := true in its BoardConfig.mk -->
-
-	\<string name="pathCameraMotorEnableToggle">\</string>
-
-	\<string name="pathCameraMotorDirectionToggle">\</string>
-
-	\<string name="pathCameraMotorSWSwitchToggle">\</string>
