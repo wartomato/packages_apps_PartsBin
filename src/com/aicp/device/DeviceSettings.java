@@ -112,6 +112,8 @@ public class DeviceSettings extends PreferenceFragment implements
 
         boolean hasAlertSlider = getContext().getResources().
                 getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
+        boolean supportsGestures = context.getResources().getBoolean(R.bool.config_device_supports_gestures);
+
         if (hasAlertSlider) {
             mSliderModeTop = (ListPreference) findPreference(KEY_SLIDER_MODE_TOP);
             mSliderModeTop.setOnPreferenceChangeListener(this);
@@ -159,13 +161,17 @@ public class DeviceSettings extends PreferenceFragment implements
         }
 
         PreferenceCategory gesturesCategory = (PreferenceCategory) findPreference(KEY_GESTURES_CATEGORY);
-        mSTapSwitch = (TwoStatePreference) findPreference(KEY_STAP_SWITCH);
-        if (mSTapSwitch != null && SingleTapSwitch.isSupported(getContext())){
-            mSTapSwitch.setEnabled(true);
-            mSTapSwitch.setChecked(SingleTapSwitch.isCurrentlyEnabled(getContext()));
-            mSTapSwitch.setOnPreferenceChangeListener(new SingleTapSwitch(getContext()));
+        if (supportsGestures) {
+            mSTapSwitch = (TwoStatePreference) findPreference(KEY_STAP_SWITCH);
+            if (mSTapSwitch != null && SingleTapSwitch.isSupported(getContext())){
+                mSTapSwitch.setEnabled(true);
+                mSTapSwitch.setChecked(SingleTapSwitch.isCurrentlyEnabled(getContext()));
+                mSTapSwitch.setOnPreferenceChangeListener(new SingleTapSwitch(getContext()));
+            } else {
+                gesturesCategory.removePreference(mSTapSwitch);
+            }
         } else {
-            gesturesCategory.removePreference(mSTapSwitch);
+            gesturesCategory.getParent().removePreference(gesturesCategory);
         }
 
         PreferenceCategory graphicsCategory = (PreferenceCategory) findPreference(KEY_GRAPHICS_CATEGORY);
