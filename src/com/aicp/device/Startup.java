@@ -73,6 +73,12 @@ public class Startup extends BroadcastReceiver {
             enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_FASTCHARGE_SWITCH, false);
             Settings.System.putInt(resolver, FastChargeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
 
+            enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_DT2W_SWITCH, false);
+            Settings.System.putInt(resolver, DoubleTapToWakeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
+
+            enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_S2W_SWITCH, false);
+            Settings.System.putInt(resolver, SweepToWakeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
+
             enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_DCD_SWITCH, false);
             Settings.System.putInt(resolver, DCDModeSwitch.SETTINGS_KEY, enabled ? 1 : 0);
 
@@ -189,9 +195,6 @@ public class Startup extends BroadcastReceiver {
             value = Settings.System.getString(resolver, GestureSettings.DEVICE_GESTURE_MAPPING_11);
             enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
             restore(getGestureFile(GestureSettings.KEY_W_GESTURE_APP), enabled);
-
-            enabled = Settings.System.getInt(resolver, SingleTapSwitch.SETTINGS_KEY, 0) != 0;
-            restore(SingleTapSwitch.getFile(context), enabled);
         }
 
         enabled = Settings.System.getInt(resolver, SRGBModeSwitch.SETTINGS_KEY, 0) != 0;
@@ -217,6 +220,15 @@ public class Startup extends BroadcastReceiver {
 
         enabled = Settings.System.getInt(resolver, FastChargeSwitch.SETTINGS_KEY, 0) != 0;
         restore(FastChargeSwitch.getFile(context), enabled);
+
+        enabled = Settings.System.getInt(resolver, SingleTapSwitch.SETTINGS_KEY, 0) != 0;
+        restore(SingleTapSwitch.getFile(context), enabled);
+
+        enabled = Settings.System.getInt(resolver, DoubleTapToWakeSwitch.SETTINGS_KEY, 0) != 0;
+        restore(DoubleTapToWakeSwitch.getFile(context), enabled);
+
+        enabled = Settings.System.getInt(resolver, SweepToWakeSwitch.SETTINGS_KEY, 0) != 0;
+        restore(SweepToWakeSwitch.getFile(context), enabled);
 
         restore(EarpieceGainPreference.getFile(context), Settings.System.getString(resolver,
                       EarpieceGainPreference.SETTINGS_KEY));
