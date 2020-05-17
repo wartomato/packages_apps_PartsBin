@@ -37,9 +37,9 @@ public abstract class VibratorStrengthPreference extends Preference implements
 
     private SeekBar mSeekBar;
     private int mOldStrength;
-    private int mMinValue;
-    private int mMaxValue;
-    private Vibrator mVibrator;
+    protected int mMinValue;
+    protected int mMaxValue;
+    protected Vibrator mVibrator;
 
     protected static long testVibrationPattern[];
     protected static String SETTINGS_KEY;
@@ -50,8 +50,6 @@ public abstract class VibratorStrengthPreference extends Preference implements
         // from drivers/platform/msm/qpnp-haptic.c
         // #define QPNP_HAP_VMAX_MIN_MV		116
         // #define QPNP_HAP_VMAX_MAX_MV		3596
-        mMinValue = 116;
-        mMaxValue = 2088;
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         setLayoutResource(R.layout.preference_seek_bar);
     }

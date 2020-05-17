@@ -119,13 +119,13 @@ public class GestureSettings extends PreferenceFragment implements
 
         mOffscreenGestureFeedbackSwitch = (TwoStatePreference) findPreference(KEY_OFF_SCREEN_GESTURE_FEEDBACK_SWITCH);
         mOffscreenGestureFeedbackSwitch.setChecked(Settings.System.getInt(getContext().getContentResolver(),
-                "Settings.System."+KeyHandler.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, 1) != 0);
+                "Settings.System."+DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, 1) != 0);
 
         mMusicPlaybackGestureSwitch = (TwoStatePreference) findPreference(KEY_MUSIC_START);
         mMusicPlaybackGestureSwitch.setChecked(Settings.System.getInt(getContext().getContentResolver(),
-                "Settings.System."+KeyHandler.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 1) != 0);
+                "Settings.System."+DeviceSettings.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 1) != 0);
         final boolean musicPlaybackEnabled = Settings.System.getIntForUser(getContext().getContentResolver(),
-                "Settings.System."+KeyHandler.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
+                "Settings.System."+DeviceSettings.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, 0, UserHandle.USER_CURRENT) == 1;
         setMusicPlaybackGestureEnabled(musicPlaybackEnabled);
 
         mCircleApp = (AppSelectListPreference) findPreference(KEY_CIRCLE_APP);
@@ -194,11 +194,11 @@ public class GestureSettings extends PreferenceFragment implements
     public boolean onPreferenceTreeClick(Preference preference) {
         if (preference == mOffscreenGestureFeedbackSwitch) {
             Settings.System.putInt(getContext().getContentResolver(),
-                    "Settings.System."+KeyHandler.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, mOffscreenGestureFeedbackSwitch.isChecked() ? 1 : 0);
+                    "Settings.System."+DeviceSettings.GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME, mOffscreenGestureFeedbackSwitch.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mMusicPlaybackGestureSwitch) {
             Settings.System.putInt(getContext().getContentResolver(),
-                    "Settings.System."+KeyHandler.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, mMusicPlaybackGestureSwitch.isChecked() ? 1 : 0);
+                    "Settings.System."+DeviceSettings.GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME, mMusicPlaybackGestureSwitch.isChecked() ? 1 : 0);
             setMusicPlaybackGestureEnabled(mMusicPlaybackGestureSwitch.isChecked());
             return true;
         }

@@ -43,6 +43,9 @@ import com.android.internal.util.aicp.PackageUtils;
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
+    public static final String GESTURE_HAPTIC_SETTINGS_VARIABLE_NAME = "OFF_GESTURE_HAPTIC_ENABLE";
+    public static final String GESTURE_MUSIC_PLAYBACK_SETTINGS_VARIABLE_NAME = "MUSIC_PLAYBACK_GESTURE_ENABLE";
+
     public static final String KEY_SYSTEM_VIBSTRENGTH = "vib_system_strength";
     public static final String KEY_CALL_VIBSTRENGTH = "vib_call_strength";
     public static final String KEY_NOTIF_VIBSTRENGTH = "vib_notif_strength";
@@ -73,7 +76,11 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_ONEPLUSMODE_SWITCH = "oneplus";
     public static final String KEY_HWK_SWITCH = "hwk";
     public static final String KEY_STAP_SWITCH = "single_tap";
+    public static final String KEY_DT2W_SWITCH = "double_tap_to_wake";
+    public static final String KEY_S2W_SWITCH = "sweep_to_wake";
     public static final String KEY_FASTCHARGE_SWITCH = "fastcharge";
+    public static final String KEY_OFFSCREEN_GESTURES = "gesture_category";
+    public static final String KEY_PANEL_SETTINGS = "panel_category";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     public static final String KEY_SETTINGS_PREFIX = "device_setting_";
@@ -90,11 +97,15 @@ public class DeviceSettings extends PreferenceFragment implements
     private ListPreference mSliderModeTop;
     private ListPreference mSliderModeCenter;
     private ListPreference mSliderModeBottom;
+    private Preference mOffScreenGestures;
+    private Preference mPanelSettings;
     private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mDCDModeSwitch;
     private static TwoStatePreference mHWKSwitch;
     private static TwoStatePreference mSTapSwitch;
     private static TwoStatePreference mFastChargeSwitch;
+    private static TwoStatePreference mDoubleTapToWakeSwitch;
+    private static TwoStatePreference mSweepToWakeSwitch;
 
 
     @Override
@@ -103,6 +114,9 @@ public class DeviceSettings extends PreferenceFragment implements
 
         boolean hasAlertSlider = getContext().getResources().
                 getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
+        boolean supportsGestures = getContext().getResources().getBoolean(R.bool.config_device_supports_gestures);
+        boolean supportsPanels = getContext().getResources().getBoolean(R.bool.config_device_supports_panels);
+
         if (hasAlertSlider) {
             mSliderModeTop = (ListPreference) findPreference(KEY_SLIDER_MODE_TOP);
             mSliderModeTop.setOnPreferenceChangeListener(this);
@@ -140,6 +154,8 @@ public class DeviceSettings extends PreferenceFragment implements
         }
 
         PreferenceCategory gesturesCategory = (PreferenceCategory) findPreference(KEY_GESTURES_CATEGORY);
+        mOffScreenGestures = (Preference) findPreference(KEY_OFFSCREEN_GESTURES);
+        int gesturesRemoved = 0;
         mSTapSwitch = (TwoStatePreference) findPreference(KEY_STAP_SWITCH);
         if (mSTapSwitch != null && SingleTapSwitch.isSupported(getContext())){
             mSTapSwitch.setEnabled(true);
@@ -147,9 +163,35 @@ public class DeviceSettings extends PreferenceFragment implements
             mSTapSwitch.setOnPreferenceChangeListener(new SingleTapSwitch(getContext()));
         } else {
             gesturesCategory.removePreference(mSTapSwitch);
+            gesturesRemoved += 1;
         }
+        mDoubleTapToWakeSwitch = (TwoStatePreference) findPreference(KEY_DT2W_SWITCH);
+        if (mDoubleTapToWakeSwitch != null && DoubleTapToWakeSwitch.isSupported(getContext())){
+            mDoubleTapToWakeSwitch.setEnabled(true);
+            mDoubleTapToWakeSwitch.setChecked(DoubleTapToWakeSwitch.isCurrentlyEnabled(getContext()));
+            mDoubleTapToWakeSwitch.setOnPreferenceChangeListener(new DoubleTapToWakeSwitch(getContext()));
+        } else {
+            gesturesCategory.removePreference(mDoubleTapToWakeSwitch);
+            gesturesRemoved += 1;
+        }
+        mSweepToWakeSwitch = (TwoStatePreference) findPreference(KEY_S2W_SWITCH);
+        if (mSweepToWakeSwitch != null && SweepToWakeSwitch.isSupported(getContext())){
+            mSweepToWakeSwitch.setEnabled(true);
+            mSweepToWakeSwitch.setChecked(SweepToWakeSwitch.isCurrentlyEnabled(getContext()));
+            mSweepToWakeSwitch.setOnPreferenceChangeListener(new SweepToWakeSwitch(getContext()));
+        } else {
+            gesturesCategory.removePreference(mSweepToWakeSwitch);
+            gesturesRemoved += 1;
+        }
+        if (!supportsGestures) {
+            mOffScreenGestures.getParent().removePreference(mOffScreenGestures);
+            gesturesRemoved += 1;
+        }
+        if (gesturesRemoved == 4) gesturesCategory.getParent().removePreference(gesturesCategory);
 
         PreferenceCategory graphicsCategory = (PreferenceCategory) findPreference(KEY_GRAPHICS_CATEGORY);
+        mPanelSettings = (Preference) findPreference(KEY_PANEL_SETTINGS);
+        int graphicsRemoved = 0;
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
         if (mHBMModeSwitch != null && HBMModeSwitch.isSupported(getContext())){
             mHBMModeSwitch.setEnabled(true);
@@ -157,6 +199,7 @@ public class DeviceSettings extends PreferenceFragment implements
             mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch(getContext()));
         } else {
             graphicsCategory.removePreference(mHBMModeSwitch);
+            graphicsRemoved += 1;
         }
 
         mDCDModeSwitch = (TwoStatePreference) findPreference(KEY_DCD_SWITCH);
@@ -166,7 +209,13 @@ public class DeviceSettings extends PreferenceFragment implements
             mDCDModeSwitch.setOnPreferenceChangeListener(new DCDModeSwitch(getContext()));
         } else {
             graphicsCategory.removePreference(mDCDModeSwitch);
+            graphicsRemoved += 1;
         }
+        if (!supportsPanels) {
+            mPanelSettings.getParent().removePreference(mPanelSettings);
+            graphicsRemoved += 1;
+        }
+        if (graphicsRemoved == 3) graphicsCategory.getParent().removePreference(graphicsCategory);
 
         PreferenceCategory powerCategory = (PreferenceCategory) findPreference(KEY_POWER_CATEGORY);
         mFastChargeSwitch = (TwoStatePreference) findPreference(KEY_FASTCHARGE_SWITCH);

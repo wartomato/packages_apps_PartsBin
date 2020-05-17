@@ -19,6 +19,12 @@
 
     <bool name="config_device_has_hw_nav_buttons">false</bool>
 
+    <!-- Whether device supports offscreen gestures -->
+    <bool name="config_device_supports_gestures">true</bool>
+
+    <!-- Whether device provides panel options -->
+    <bool name="config_device_supports_panels">true</bool>
+
     <!-- Whether device supports disabling hwkeys -->
     <string name="pathHWKToggle"></string>
 
@@ -27,6 +33,12 @@
 
     <!-- Path to devices single-tap toggle file -->
     <string name="pathSTapToggle"></string>
+
+    <!-- Path to devices doubletap to wake toggle file -->
+    <string name="pathDoubleTapToWakeToggle"></string>
+
+    <!-- Path to devices sweep to wake toggle file -->
+    <string name="pathSweepToWakeToggle"></string>
 
     <!-- Path to devices High Brigness Mode toggle file -->
     <string name="pathHBMModeToggle"></string>

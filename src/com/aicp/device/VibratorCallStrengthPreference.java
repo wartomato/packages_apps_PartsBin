@@ -28,11 +28,7 @@ public class VibratorCallStrengthPreference extends VibratorStrengthPreference {
     protected static long testVibrationPattern[] = {0,250};
     protected static String SETTINGS_KEY = DeviceSettings.KEY_SETTINGS_PREFIX + DeviceSettings.KEY_CALL_VIBSTRENGTH;
 
-    private Vibrator mVibrator;
-    private String mDefaultValue;
     private String mFileName;
-    private int mMinValue;
-    private int mMaxValue;
 
     public VibratorCallStrengthPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,9 +38,7 @@ public class VibratorCallStrengthPreference extends VibratorStrengthPreference {
         mFileName = context.getResources().getString(R.string.pathCallVibStrength);
         mMinValue = (int) context.getResources().getInteger(R.integer.vibratorMinMV);
         mMaxValue = (int) context.getResources().getInteger(R.integer.vibratorMaxMV);
-        mDefaultValue = Integer.toString(context.getResources().getInteger(R.integer.vibratorDefaultMV));
-        DEFAULT_VALUE = mDefaultValue;
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        DEFAULT_VALUE = getDefaultValue(context);
         setLayoutResource(R.layout.preference_seek_bar);
         restore(context);
     }
@@ -59,7 +53,7 @@ public class VibratorCallStrengthPreference extends VibratorStrengthPreference {
 
     @Override
     protected String getValue(Context context) {
-        String val = Utils.getFileValue(mFileName, mDefaultValue);
+        String val = Utils.getFileValue(mFileName, DEFAULT_VALUE);
         return val;
     }
 
@@ -78,12 +72,12 @@ public class VibratorCallStrengthPreference extends VibratorStrengthPreference {
         }
         String storedValue = Settings.System.getString(context.getContentResolver(), SETTINGS_KEY);
         if (storedValue == null) {
-            storedValue = mDefaultValue;
+            storedValue = DEFAULT_VALUE;
         }
         Utils.writeValue(mFileName, storedValue);
     }
 
-    public static String getDefaultValue() {
-        return DEFAULT_VALUE;
+    public static String getDefaultValue(Context context) {
+        return Integer.toString(context.getResources().getInteger(R.integer.vibratorDefaultMV));
     }
 }

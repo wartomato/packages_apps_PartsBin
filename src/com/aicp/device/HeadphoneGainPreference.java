@@ -50,13 +50,11 @@ public class HeadphoneGainPreference extends Preference implements
         super(context, attrs);
         // from sound/soc/codecs/wcd9335.c
         mFileName = context.getResources().getString(R.string.pathAudioHeadphoneGain);
-        String defaultValue = Integer.toString(0);
         if (isSupported()) {
             mMinValue = (int) context.getResources().getInteger(R.integer.audioHeadphoneGainMin);
             mMaxValue = (int) context.getResources().getInteger(R.integer.audioHeadphoneGainMax);
-            defaultValue = Integer.toString(context.getResources().getInteger(R.integer.audioHeadphoneGainDefault));
         }
-        DEFAULT_VALUE = defaultValue;
+        DEFAULT_VALUE = getDefaultValue(context);
         setLayoutResource(R.layout.preference_seek_bar);
         restore(context);
     }
@@ -98,8 +96,9 @@ public class HeadphoneGainPreference extends Preference implements
         Utils.writeValueDual(mFileName, storedValue);
     }
 
-    public static String getDefaultValue() {
-        return DEFAULT_VALUE;
+    public static String getDefaultValue(Context context) {
+        return isSupported() ? Integer.toString(context.getResources().getInteger(R.integer.audioHeadphoneGainDefault)) :
+                                Integer.toString(0);
     }
 
     @Override
