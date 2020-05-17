@@ -29,7 +29,6 @@ public class VibratorSystemStrengthPreference extends VibratorStrengthPreference
     protected static String SETTINGS_KEY = DeviceSettings.KEY_SETTINGS_PREFIX + DeviceSettings.KEY_SYSTEM_VIBSTRENGTH;
 
     private Vibrator mVibrator;
-    private String mDefaultValue;
     private String mFileName;
     private int mMinValue;
     private int mMaxValue;
@@ -42,8 +41,7 @@ public class VibratorSystemStrengthPreference extends VibratorStrengthPreference
         mFileName = context.getResources().getString(R.string.pathSystemVibStrength);
         mMinValue = (int) context.getResources().getInteger(R.integer.vibratorMinMV);
         mMaxValue = (int) context.getResources().getInteger(R.integer.vibratorMaxMV);
-        mDefaultValue = Integer.toString(context.getResources().getInteger(R.integer.vibratorDefaultMV));
-        DEFAULT_VALUE = mDefaultValue;
+        DEFAULT_VALUE = getDefaultValue(context);
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         setLayoutResource(R.layout.preference_seek_bar);
         restore(context);
@@ -59,7 +57,7 @@ public class VibratorSystemStrengthPreference extends VibratorStrengthPreference
 
     @Override
     protected String getValue(Context context) {
-        String val = Utils.getFileValue(mFileName, mDefaultValue);
+        String val = Utils.getFileValue(mFileName, DEFAULT_VALUE);
         return val;
     }
 
@@ -78,12 +76,12 @@ public class VibratorSystemStrengthPreference extends VibratorStrengthPreference
         }
         String storedValue = Settings.System.getString(context.getContentResolver(), SETTINGS_KEY);
         if (storedValue == null) {
-            storedValue = mDefaultValue;
+            storedValue = DEFAULT_VALUE;
         }
         Utils.writeValue(mFileName, storedValue);
     }
 
-    public static String getDefaultValue() {
-        return DEFAULT_VALUE;
+    public static String getDefaultValue(Context context) {
+        return Integer.toString(context.getResources().getInteger(R.integer.vibratorDefaultMV));
     }
 }
