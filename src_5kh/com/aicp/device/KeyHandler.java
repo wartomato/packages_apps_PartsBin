@@ -105,6 +105,7 @@ public class KeyHandler implements CustomKeyHandler {
     private boolean isFpgesture;
     private boolean mTorchState = false;
     private boolean mUseSliderTorch = false;
+    private int mSliderPosition = -1;
 
     private SensorEventListener mProximitySensor = new SensorEventListener() {
         @Override
@@ -248,18 +249,21 @@ public class KeyHandler implements CustomKeyHandler {
             if (DEBUG) Log.i(TAG, "scanCode=" + scanCode);
             int position = scanCode == Constants.KEY_SLIDER_TOP ? 0 :
                     scanCode == Constants.KEY_SLIDER_CENTER ? 1 : 2;
-            doHandleSliderAction(position);
-            switch(scanCode) {
-                case Constants.KEY_SLIDER_TOP:
-                    if (DEBUG) Log.i(TAG, "KEY_SLIDER_TOP");
-                    return true;
-                case Constants.KEY_SLIDER_CENTER:
-                    if (DEBUG) Log.i(TAG, "KEY_SLIDER_CENTER");
-                    return true;
-                case Constants.KEY_SLIDER_BOTTOM:
-                    if (DEBUG) Log.i(TAG, "KEY_SLIDER_BOTTOM");
-                    return true;
-            }
+            if (mSliderPosition != position) {
+                mSliderPosition = position;
+                doHandleSliderAction(position);
+                switch(scanCode) {
+                    case Constants.KEY_SLIDER_TOP:
+                        if (DEBUG) Log.i(TAG, "KEY_SLIDER_TOP");
+                        return true;
+                    case Constants.KEY_SLIDER_CENTER:
+                        if (DEBUG) Log.i(TAG, "KEY_SLIDER_CENTER");
+                        return true;
+                    case Constants.KEY_SLIDER_BOTTOM:
+                        if (DEBUG) Log.i(TAG, "KEY_SLIDER_BOTTOM");
+                        return true;
+                }
+            } // else: discard changes caused by a loose contact
         }
 
         if (DEBUG) Log.i(TAG, "nav_code=" + event.getScanCode());
