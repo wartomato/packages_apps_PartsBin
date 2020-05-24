@@ -45,9 +45,10 @@
     <string name="pathSweepToWakeToggle"></string>
 
     <!-- Path to devices High Brigness Mode toggle file -->
+    <!-- Example values are "0" for off and "1! for on -->
     <string name="pathHBMModeToggle"></string>
-    <string name="hbmOFF">"0"</string>
-    <string name="hbmON">"1"</string>
+    <string name="hbmOFF"></string>
+    <string name="hbmON"></string>
 
     <!-- Path to devices OnePlus Mode toggle file -->
     <string name="pathOnePlusModeToggle"></string>
