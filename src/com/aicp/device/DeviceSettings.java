@@ -153,7 +153,7 @@ public class DeviceSettings extends PreferenceFragment implements
         }
 
         boolean supports_soundtuner = getContext().getResources().
-                getBoolean(com.android.internal.R.bool.config_device_supports_soundtuner);
+                getBoolean(R.bool.config_device_supports_soundtuner);
         if (supports_soundtuner) {
             mEnableDolbyAtmos = (SwitchPreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
             mEnableDolbyAtmos.setOnPreferenceChangeListener(this);
@@ -237,7 +237,7 @@ public class DeviceSettings extends PreferenceFragment implements
         if (graphicsRemoved == 3) graphicsCategory.getParent().removePreference(graphicsCategory);
 
         boolean supports_refreshrate = getContext().getResources().
-                getBoolean(com.android.internal.R.bool.config_device_supports_switch_refreshrate);
+                getBoolean(R.bool.config_device_supports_switch_refreshrate);
         if (supports_refreshrate) {
             mAutoRefreshRate = (SwitchPreference) findPreference(KEY_AUTO_REFRESH_RATE);
             mAutoRefreshRate.setChecked(AutoRefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
@@ -249,7 +249,7 @@ public class DeviceSettings extends PreferenceFragment implements
             mRefreshRate.setOnPreferenceChangeListener(new RefreshRateSwitch(getContext()));
         } else {
             PreferenceCategory refreshCategory = (PreferenceCategory) findPreference(KEY_CATEGORY_REFRESH);
-            soundCategory.getParent().removePreference(refreshCategory);
+            refreshCategory.getParent().removePreference(refreshCategory);
         }
 
         PreferenceCategory powerCategory = (PreferenceCategory) findPreference(KEY_POWER_CATEGORY);
