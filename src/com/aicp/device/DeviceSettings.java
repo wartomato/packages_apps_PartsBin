@@ -21,26 +21,26 @@ package com.aicp.device;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
-import android.content.res.Resources;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
-import androidx.preference.PreferenceFragment;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceScreen;
-import androidx.preference.SwitchPreference;
-import androidx.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.util.Log;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.SwitchPreference;
+import androidx.preference.TwoStatePreference;
 
 import com.android.internal.util.aicp.PackageUtils;
 
@@ -349,13 +349,7 @@ public class DeviceSettings extends PreferenceFragment implements
             setSliderAction(2, sliderMode);
             int valueIndex = mSliderModeBottom.findIndexOfValue(value);
             mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-      if (preference == mEnableDolbyAtmos) {
+        } else if (preference == mEnableDolbyAtmos) {
           boolean enabled = (Boolean) newValue;
           Intent daxService = new Intent();
           ComponentName name = new ComponentName("com.dolby.daxservice", "com.dolby.daxservice.DaxService");
@@ -371,10 +365,8 @@ public class DeviceSettings extends PreferenceFragment implements
               this.getContext().getPackageManager().setComponentEnabledSetting(name,
                       PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
           }
-      } else {
-        Constants.setPreferenceInt(getContext(), preference.getKey(), Integer.parseInt((String) newValue));
-             }
-      return true;
+        }
+        return true;
     }
 
     private int getSliderAction(int position) {
