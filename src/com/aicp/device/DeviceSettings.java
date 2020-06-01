@@ -20,16 +20,19 @@ package com.aicp.device;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.res.Resources;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
-import androidx.preference.TwoStatePreference;
 import androidx.preference.SwitchPreference;
+import androidx.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -114,8 +117,8 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mDoubleTapToWakeSwitch;
     private static TwoStatePreference mSweepToWakeSwitch;
     private static TwoStatePreference mRefreshRate;
-    private static SwitchPreference mAutoRefreshRate;
-    private SwitchPreference mEnableDolbyAtmos;
+    private static TwoStatePreference mAutoRefreshRate;
+    private TwoStatePreference mEnableDolbyAtmos;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -155,7 +158,7 @@ public class DeviceSettings extends PreferenceFragment implements
         boolean supports_soundtuner = getContext().getResources().
                 getBoolean(R.bool.config_device_supports_soundtuner);
         if (supports_soundtuner) {
-            mEnableDolbyAtmos = (SwitchPreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
+            mEnableDolbyAtmos = (TwoStatePreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
             mEnableDolbyAtmos.setOnPreferenceChangeListener(this);
         } else {
             PreferenceCategory soundCategory = (PreferenceCategory) findPreference(KEY_ENABLE_DOLBY_ATMOS);
@@ -239,11 +242,11 @@ public class DeviceSettings extends PreferenceFragment implements
         boolean supports_refreshrate = getContext().getResources().
                 getBoolean(R.bool.config_device_supports_switch_refreshrate);
         if (supports_refreshrate) {
-            mAutoRefreshRate = (SwitchPreference) findPreference(KEY_AUTO_REFRESH_RATE);
+            mAutoRefreshRate = (TwoStatePreference) findPreference(KEY_AUTO_REFRESH_RATE);
             mAutoRefreshRate.setChecked(AutoRefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
             mAutoRefreshRate.setOnPreferenceChangeListener(new AutoRefreshRateSwitch(getContext()));
 
-            mRefreshRate = (SwitchPreference) findPreference(KEY_REFRESH_RATE);
+            mRefreshRate = (TwoStatePreference) findPreference(KEY_REFRESH_RATE);
             mRefreshRate.setEnabled(!AutoRefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
             mRefreshRate.setChecked(RefreshRateSwitch.isCurrentlyEnabled(this.getContext()));
             mRefreshRate.setOnPreferenceChangeListener(new RefreshRateSwitch(getContext()));
@@ -348,6 +351,30 @@ public class DeviceSettings extends PreferenceFragment implements
             mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
         }
         return true;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+      if (preference == mEnableDolbyAtmos) {
+          boolean enabled = (Boolean) newValue;
+          Intent daxService = new Intent();
+          ComponentName name = new ComponentName("com.dolby.daxservice", "com.dolby.daxservice.DaxService");
+          daxService.setComponent(name);
+          if (enabled) {
+              // enable service component and start service
+              this.getContext().getPackageManager().setComponentEnabledSetting(name,
+                      PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, 0);
+              this.getContext().startService(daxService);
+          } else {
+              // disable service component and stop service
+              this.getContext().stopService(daxService);
+              this.getContext().getPackageManager().setComponentEnabledSetting(name,
+                      PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
+          }
+      } else {
+        Constants.setPreferenceInt(getContext(), preference.getKey(), Integer.parseInt((String) newValue));
+             }
+      return true;
     }
 
     private int getSliderAction(int position) {
