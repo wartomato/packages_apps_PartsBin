@@ -13,7 +13,7 @@
     <protected-broadcast android:name="com.aicp.device.UPDATE_SLIDER_POSITION" />
 
     <uses-sdk
-        android:minSdkVersion="28"
+        android:minSdkVersion="26"
         android:targetSdkVersion="29" />
 
     <application
@@ -102,6 +102,7 @@
                     android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+
         <service
             android:name="com.aicp.device.DCDModeTileService"
             android:icon="@drawable/ic_dc_tile"
@@ -112,6 +113,7 @@
                     android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+
         <service
             android:name="com.aicp.device.RefreshRateTileService"
             android:icon="@drawable/ic_refresh"
