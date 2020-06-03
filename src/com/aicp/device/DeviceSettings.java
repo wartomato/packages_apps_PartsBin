@@ -39,7 +39,6 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
-import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
 import com.android.internal.util.aicp.PackageUtils;
