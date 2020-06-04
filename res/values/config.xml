@@ -21,6 +21,8 @@
 
     <bool name="config_device_supports_switch_refreshrate">false</bool>
 
+    <bool name="config_device_supports_soundtuner">false</bool>
+
     <!-- Whether device supports offscreen gestures -->
     <bool name="config_device_supports_gestures">true</bool>
 

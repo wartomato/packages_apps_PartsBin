@@ -39,11 +39,13 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 
 	Sweep to wake (S2W): En-/disable waking up the display by swiping from left to right in the lower section.
 
+	SoundTuner: En-/disable the proprietary SoundTuner (OnePlus specific)
+
 	HBMSwitch: High Brightness Mode toggle with configurable off-on values
 
 	DCDSwitch: DC-Dimming toggle
 
-	Display Panel Colormodes: sRGB, DCI-P3, WideColor, OnePlus, Nightmode
+	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Nightmode
 
 	Display Refreshrate: Automatic, Manual (60Hz, 90Hz)
 
@@ -84,6 +86,9 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 
 	\<!-- Whether the device supports offscreen-gestures (true/false) -->
 	\<bool name="config_device_supports_gestures">\</bool>
+
+	\<!-- Whether the device supports the prebuilt SoundTuner (true/false) -->
+	\<bool name="config_device_supports_soundtuner">\</bool>
 
 	\<!-- Whether device supports switching display refreshrates (true/false) -->
 	\<bool name="config_device_supports_switch_refreshrate">\</bool>
