@@ -87,7 +87,6 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_FASTCHARGE_SWITCH = "fastcharge";
     public static final String KEY_REFRESH_RATE = "refresh_rate";
     public static final String KEY_AUTO_REFRESH_RATE = "auto_refresh_rate";
-    private static final String KEY_ENABLE_DOLBY_ATMOS = "enable_dolby_atmos";
     public static final String KEY_OFFSCREEN_GESTURES = "gesture_category";
     public static final String KEY_PANEL_SETTINGS = "panel_category";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
@@ -117,7 +116,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mSweepToWakeSwitch;
     private static TwoStatePreference mRefreshRate;
     private static TwoStatePreference mAutoRefreshRate;
-    private TwoStatePreference mEnableDolbyAtmos;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -152,16 +150,6 @@ public class DeviceSettings extends PreferenceFragment implements
         } else {
             PreferenceCategory sliderCategory = (PreferenceCategory) findPreference(KEY_SLIDER_CATEGORY);
             sliderCategory.getParent().removePreference(sliderCategory);
-        }
-
-        boolean supports_soundtuner = getContext().getResources().
-                getBoolean(R.bool.config_device_supports_soundtuner);
-        if (supports_soundtuner) {
-            mEnableDolbyAtmos = (TwoStatePreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
-            mEnableDolbyAtmos.setOnPreferenceChangeListener(this);
-        } else {
-            PreferenceCategory soundCategory = (PreferenceCategory) findPreference(KEY_ENABLE_DOLBY_ATMOS);
-            soundCategory.getParent().removePreference(soundCategory);
         }
 
         mHWKSwitch = (TwoStatePreference) findPreference(KEY_HWK_SWITCH);
@@ -348,22 +336,6 @@ public class DeviceSettings extends PreferenceFragment implements
             setSliderAction(2, sliderMode);
             int valueIndex = mSliderModeBottom.findIndexOfValue(value);
             mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
-        } else if (preference == mEnableDolbyAtmos) {
-          boolean enabled = (Boolean) newValue;
-          Intent daxService = new Intent();
-          ComponentName name = new ComponentName("com.dolby.daxservice", "com.dolby.daxservice.DaxService");
-          daxService.setComponent(name);
-          if (enabled) {
-              // enable service component and start service
-              this.getContext().getPackageManager().setComponentEnabledSetting(name,
-                      PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, 0);
-              this.getContext().startService(daxService);
-          } else {
-              // disable service component and stop service
-              this.getContext().stopService(daxService);
-              this.getContext().getPackageManager().setComponentEnabledSetting(name,
-                      PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
-          }
         }
         return true;
     }

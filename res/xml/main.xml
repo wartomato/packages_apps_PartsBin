@@ -17,32 +17,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:key="category_audio"
-        android:title="@string/category_audio">
-        <SwitchPreference
-            android:key="enable_dolby_atmos"
-            android:title="@string/enable_sound_title"
-            android:icon="@drawable/ic_audio_enh"
-            android:summary="@string/enable_sound_summary"
-            android:defaultValue="true"
-            android:persistent="true" />
-        <Preference
-            android:key="dolby_atmos"
-            android:title="@string/sound_title"
-            android:summary="@string/sound_summary"
-            android:dependency="enable_dolby_atmos"
-            android:persistent="false" >
-            <intent
-                 android:targetPackage="com.oneplus.sound.tuner"
-                 android:targetClass="com.oneplus.sound.tuner.panoramic.DolbyPanoramicSoundActivity" />
-        </Preference>
-        <Preference
-            android:icon="@drawable/ic_info"
-            android:persistent="false"
-            android:summary="@string/enable_sound_info" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="category_graphics"
         android:title="@string/graphics_title">
         <SwitchPreference
