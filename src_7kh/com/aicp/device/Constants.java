@@ -44,7 +44,8 @@ public class Constants {
     public static final int KEY_VALUE_NORMAL = 4;
 
     // Single tap key code
-    public static final int KEY_SINGLE_TAP = 67;
+    public static final int KEY_SINGLE_TAP = 255;
+
     // Key Codes
     public static final int KEY_DOUBLE_TAP = 143;
     public static final int KEY_HOME = 102;
@@ -66,18 +67,14 @@ public class Constants {
     public static final int MODE_FLASHLIGHT = 621;
 
     // Gesture constants
-    public static final int GESTURE_RIGHT_SWIPE_SCANCODE = 63;
-    public static final int GESTURE_LEFT_SWIPE_SCANCODE = 64;
-    public static final int GESTURE_DOWN_SWIPE_SCANCODE = 65;
-    public static final int GESTURE_UP_SWIPE_SCANCODE = 66;
     public static final int GESTURE_W_SCANCODE = 246;
     public static final int GESTURE_M_SCANCODE = 247;
     public static final int GESTURE_S_SCANCODE = 248;
     public static final int GESTURE_CIRCLE_SCANCODE = 250;
     public static final int GESTURE_II_SCANCODE = 251;
     public static final int GESTURE_V_SCANCODE = 252;
-    public static final int GESTURE_RIGHT_V_SCANCODE = 253;
-    public static final int GESTURE_LEFT_V_SCANCODE = 254;
+    public static final int GESTURE_LEFT_V_SCANCODE = 253;
+    public static final int GESTURE_RIGHT_V_SCANCODE = 254;
 
     public static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
 
@@ -103,10 +100,6 @@ public class Constants {
         GESTURE_V_SCANCODE,
         GESTURE_LEFT_V_SCANCODE,
         GESTURE_RIGHT_V_SCANCODE,
-        GESTURE_DOWN_SWIPE_SCANCODE,
-        GESTURE_UP_SWIPE_SCANCODE,
-        GESTURE_LEFT_SWIPE_SCANCODE,
-        GESTURE_RIGHT_SWIPE_SCANCODE,
         GESTURE_M_SCANCODE,
         GESTURE_W_SCANCODE,
         GESTURE_S_SCANCODE,
