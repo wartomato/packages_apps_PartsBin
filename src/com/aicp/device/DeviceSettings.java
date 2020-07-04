@@ -40,6 +40,7 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
+import androidx.preference.SwitchPreference;
 
 import com.android.internal.util.aicp.PackageUtils;
 
@@ -117,7 +118,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mSweepToWakeSwitch;
     private static TwoStatePreference mRefreshRate;
     private static TwoStatePreference mAutoRefreshRate;
-    private TwoStatePreference mEnableDolbyAtmos;
+    private SwitchPreference mEnableDolbyAtmos;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -157,7 +158,7 @@ public class DeviceSettings extends PreferenceFragment implements
         boolean supports_soundtuner = getContext().getResources().
                 getBoolean(R.bool.config_device_supports_soundtuner);
         if (supports_soundtuner) {
-            mEnableDolbyAtmos = (TwoStatePreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
+            mEnableDolbyAtmos = (SwitchPreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
             mEnableDolbyAtmos.setOnPreferenceChangeListener(this);
         } else {
             PreferenceCategory soundCategory = (PreferenceCategory) findPreference(KEY_ENABLE_DOLBY_ATMOS);
