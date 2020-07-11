@@ -89,6 +89,7 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String KEY_REFRESH_RATE = "refresh_rate";
     public static final String KEY_AUTO_REFRESH_RATE = "auto_refresh_rate";
     private static final String KEY_ENABLE_DOLBY_ATMOS = "enable_dolby_atmos";
+    private static final String KEY_DOLBY_ATMOS_CONTROL = "dolby_atmos";
     public static final String KEY_OFFSCREEN_GESTURES = "gesture_category";
     public static final String KEY_PANEL_SETTINGS = "panel_category";
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
@@ -119,6 +120,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private static TwoStatePreference mRefreshRate;
     private static TwoStatePreference mAutoRefreshRate;
     private SwitchPreference mEnableDolbyAtmos;
+    private Preference mDolbyAtmosControl;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -160,6 +162,7 @@ public class DeviceSettings extends PreferenceFragment implements
         if (supports_soundtuner) {
             mEnableDolbyAtmos = (SwitchPreference) findPreference(KEY_ENABLE_DOLBY_ATMOS);
             mEnableDolbyAtmos.setOnPreferenceChangeListener(this);
+            mDolbyAtmosControl = findPreference(KEY_DOLBY_ATMOS_CONTROL);
         } else {
             PreferenceCategory soundCategory = (PreferenceCategory) findPreference(KEY_ENABLE_DOLBY_ATMOS);
             soundCategory.getParent().removePreference(soundCategory);
@@ -349,22 +352,28 @@ public class DeviceSettings extends PreferenceFragment implements
             setSliderAction(2, sliderMode);
             int valueIndex = mSliderModeBottom.findIndexOfValue(value);
             mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
-        } else if (preference == mEnableDolbyAtmos) {
-          boolean enabled = (Boolean) newValue;
-          Intent daxService = new Intent();
-          ComponentName name = new ComponentName("com.dolby.daxservice", "com.dolby.daxservice.DaxService");
-          daxService.setComponent(name);
-          if (enabled) {
-              // enable service component and start service
-              this.getContext().getPackageManager().setComponentEnabledSetting(name,
-                      PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, 0);
-              this.getContext().startService(daxService);
-          } else {
-              // disable service component and stop service
-              this.getContext().stopService(daxService);
-              this.getContext().getPackageManager().setComponentEnabledSetting(name,
-                      PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0);
-          }
+        } else if (preference == mDolbyAtmosControl) {
+            // first check if razer app is installed
+            String pkg = "com.dolby.daxappui";
+            String activity = "com.dolby.daxappui.MainActivity";
+            try {
+                this.getContext().getPackageManager().getPackageInfo(pkg, 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                // fallback
+                pkg = "com.oneplus.sound.tuner";
+                activity = "com.oneplus.sound.tuner.panoramic.DolbyPanoramicSoundActivity";
+                try {
+                    this.getContext().getPackageManager().getPackageInfo(pkg, 0);
+                } catch (PackageManager.NameNotFoundException ex) {
+                    pkg = null;
+                }
+            }
+            if (pkg != null) {
+                Intent i = new Intent();
+                ComponentName n = new ComponentName(pkg, activity);
+                i.setComponent(n);
+                this.getContext().startActivity(i);
+            }
         }
         return true;
     }
