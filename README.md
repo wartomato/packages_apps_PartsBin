@@ -8,6 +8,7 @@
   * OnePlus 5:      cheeseburger
   * OnePlus 5T:     dumpling
   * OnePlus 6:      enchilada
+  * OnePlus 6T:     fajita
   * OnePlus 7:      guacamoleb
   * OnePlus 7 Pro:  guacamole
   * OnePlus 7T Pro: hotdog
@@ -41,13 +42,13 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 
 	SoundTuner: En-/disable the proprietary SoundTuner (OnePlus specific)
 
-	HBMSwitch: High Brightness Mode toggle with configurable off-on values
+	HBMSwitch: High Brightness Mode toggle with configurable off-on values with additional QS tile
 
-	DCDSwitch: DC-Dimming toggle
+	DCDSwitch: DC-Dimming toggle with additional QS tile
 
-	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Nightmode
+	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Nightmode. With additional QS tile
 
-	Display Refreshrate: Automatic, Manual (60Hz, 90Hz)
+	Display Refreshrate: Automatic, Manual (60Hz, 90Hz) with additional QS tile
 
 	Vibration Modes: System, Calls, Notifications
 	[Note: For a vibration to work the corresponding integer vibrator overlays must be defined.]
@@ -92,6 +93,18 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 
 	\<!-- Whether device supports switching display refreshrates (true/false) -->
 	\<bool name="config_device_supports_switch_refreshrate">\</bool>
+
+    \<!-- Show/hide the QS tile, if device supports DC Dimming or not. Default value is false. -->
+    \<bool name="DCDSwitch_tile">false</bool>
+
+    \<!-- Show/hide the QS tile, if device supports switching display refreshrates or not. Default value is false. -->
+    \<bool name="RefreshrateSwitch_tile">false</bool>
+
+    \<!-- Show/hide the QS tile, if device supports switching Displaymodes or not. Default value is false. -->
+    \<bool name="PanelModeSwitch_tile">false</bool>
+
+    \<!-- Show/hide the QS tile, if device supports switching HighBrightness mode or not. Default value is false. -->
+    \<bool name="HBMModeSwitch_tile">false</bool>
 
 	\<!-- Whether device supports disabling hwkeys -->
 	\<string name="pathHWKToggle">\</string>
