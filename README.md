@@ -12,7 +12,6 @@
   * OnePlus 7:      guacamoleb
   * OnePlus 7 Pro:  guacamole
   * OnePlus 7T Pro: hotdog
-  * Hammerhead:     Google Nexus 5
 
 ### Description
 
@@ -95,16 +94,16 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 	\<bool name="config_device_supports_switch_refreshrate">\</bool>
 
     \<!-- Show/hide the QS tile, if device supports DC Dimming or not. Default value is false. -->
-    \<bool name="DCDSwitch_tile">false</bool>
+    \<bool name="enableDCDTile">false</bool>
 
     \<!-- Show/hide the QS tile, if device supports switching display refreshrates or not. Default value is false. -->
-    \<bool name="RefreshrateSwitch_tile">false</bool>
+    \<bool name="enableRefreshrateTile">false</bool>
 
     \<!-- Show/hide the QS tile, if device supports switching Displaymodes or not. Default value is false. -->
-    \<bool name="PanelModeSwitch_tile">false</bool>
+    \<bool name="enablePanelModeTile">false</bool>
 
     \<!-- Show/hide the QS tile, if device supports switching HighBrightness mode or not. Default value is false. -->
-    \<bool name="HBMModeSwitch_tile">false</bool>
+    \<bool name="enableHBMModeTile">false</bool>
 
 	\<!-- Whether device supports disabling hwkeys -->
 	\<string name="pathHWKToggle">\</string>

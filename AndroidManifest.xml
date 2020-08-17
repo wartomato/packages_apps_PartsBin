@@ -85,7 +85,7 @@
             android:name="com.aicp.device.PanelModeTileService"
             android:icon="@drawable/ic_panel_tile"
             android:label="@string/tile_panel_mode"
-            android:enabled="@bool/PanelModeSwitch_tile"
+            android:enabled="@bool/enablePanelModeTile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action
@@ -97,7 +97,7 @@
             android:name="com.aicp.device.HBMModeTileService"
             android:icon="@drawable/ic_hbm_tile"
             android:label="@string/tile_hbm_mode"
-            android:enabled="@bool/HBMModeSwitch_tile"
+            android:enabled="@bool/enableHBMModeTile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action
@@ -108,7 +108,7 @@
             android:name="com.aicp.device.DCDModeTileService"
             android:icon="@drawable/ic_dc_tile"
             android:label="@string/tile_dcd_mode"
-            android:enabled="@bool/DCDSwitch_tile"
+            android:enabled="@bool/enableDCDTile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action
@@ -119,7 +119,7 @@
             android:name="com.aicp.device.RefreshRateTileService"
             android:icon="@drawable/ic_refresh"
             android:label="@string/tile_refresh_rate"
-            android:enabled="@bool/RefreshrateSwitch_tile"
+            android:enabled="@bool/enableRefreshrateTile"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action
