@@ -20,7 +20,7 @@ tree for this package. Overlays are mostly sysfs paths controlling that particul
 feature. This application must have proper file access and sepolicy security contexts
 to those sysfs paths.
 
-Resources are used from https://github.com/eyosen/packages_resources_deviceparts
+Resources are used from https://github.com/AICP/packages_resources_deviceparts
 
 Currently supported features include:
 
