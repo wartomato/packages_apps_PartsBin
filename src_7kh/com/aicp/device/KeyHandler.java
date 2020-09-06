@@ -62,6 +62,8 @@ public class KeyHandler implements CustomKeyHandler {
 
     private static final String KEY_CONTROL_PATH = "/proc/touchpanel/key_disable";
 
+    public static final String DYNAMIC_FPS_PATH = "/sys/class/drm/card0-DSI-1/dynamic_fps";
+
     protected final Context mContext;
     private final PowerManager mPowerManager;
     private EventHandler mEventHandler;
@@ -374,6 +376,8 @@ public class KeyHandler implements CustomKeyHandler {
 
     private void onDisplayOn() {
         if (DEBUG) Log.i(TAG, "Display on");
+
+        Utils.writeValue(DYNAMIC_FPS_PATH, "90");
     }
 
     private void onDisplayOff() {
