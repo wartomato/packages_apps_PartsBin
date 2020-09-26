@@ -214,18 +214,6 @@ public class KeyHandler implements CustomKeyHandler {
                 return AppSelectListPreference.MUSIC_PREV_ENTRY;
             case Constants.GESTURE_RIGHT_V_SCANCODE:
                 return AppSelectListPreference.MUSIC_NEXT_ENTRY;
-            case Constants.GESTURE_DOWN_SWIPE_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_6, UserHandle.USER_CURRENT);
-            case Constants.GESTURE_UP_SWIPE_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_7, UserHandle.USER_CURRENT);
-            case Constants.GESTURE_LEFT_SWIPE_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_8, UserHandle.USER_CURRENT);
-            case Constants.GESTURE_RIGHT_SWIPE_SCANCODE:
-                return Settings.System.getStringForUser(mContext.getContentResolver(),
-                    GestureSettings.DEVICE_GESTURE_MAPPING_9, UserHandle.USER_CURRENT);
             case Constants.GESTURE_S_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_10, UserHandle.USER_CURRENT);
