@@ -48,6 +48,7 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 	Displaypanel Color Modes: sRGB, DCI-P3, WideColor, OnePlus, Nightmode. With additional QS tile
 
 	Display Refreshrate: Automatic, Manual (60Hz, 90Hz) with additional QS tile
+	[Note: Requires setting the kernel node for "dynamic_fps" and a few other bools.]
 
 	Vibration Modes: System, Calls, Notifications
 	[Note: For a vibration to work the corresponding integer vibrator overlays must be defined.]
@@ -81,75 +82,75 @@ _Note that defining paths needs support in the kernel! Thus the features might n
 
 **Configurable overlays**
 
-	\<!-- Whether the device has hardware navigation buttons (true/false) -->
-	\<bool name="config_device_has_hw_nav_buttons">\</bool>
+`<!-- Whether the device has hardware navigation buttons (true/false) -->`<br />
+`<bool name="config_device_has_hw_nav_buttons"> </bool>`<br />
 
-	\<!-- Whether the device supports offscreen-gestures (true/false) -->
-	\<bool name="config_device_supports_gestures">\</bool>
+`<!-- Whether the device supports offscreen-gestures (true/false) -->`<br />
+`<bool name="config_device_supports_gestures"> </bool>`<br />
 
-	\<!-- Whether the device supports the prebuilt SoundTuner (true/false) -->
-	\<bool name="config_device_supports_soundtuner">\</bool>
+`<!-- Whether the device supports the prebuilt SoundTuner (true/false) -->`<br />
+`<bool name="config_device_supports_soundtuner"> </bool>`<br />
 
-	\<!-- Whether device supports switching display refreshrates (true/false) -->
-	\<bool name="config_device_supports_switch_refreshrate">\</bool>
+`<!-- Whether device supports switching display refreshrates (true/false) -->`<br />
+`<bool name="config_device_supports_switch_refreshrate"> </bool>`<br />
 
-    \<!-- Show/hide the QS tile, if device supports DC Dimming or not. Default value is false. -->
-    \<bool name="enableDCDTile">false</bool>
+`<!-- Show/hide the QS tile, if device supports DC Dimming or not. Default value is false. -->`<br />
+`<bool name="enableDCDTile">false</bool>`<br />
 
-    \<!-- Show/hide the QS tile, if device supports switching display refreshrates or not. Default value is false. -->
-    \<bool name="enableRefreshrateTile">false</bool>
+`<!-- Show/hide the QS tile, if device supports switching display refreshrates or not. Default value is false. -->`<br />
+`<bool name="enableRefreshrateTile">false</bool>`<br />
 
-    \<!-- Show/hide the QS tile, if device supports switching Displaymodes or not. Default value is false. -->
-    \<bool name="enablePanelModeTile">false</bool>
+`<!-- Show/hide the QS tile, if device supports switching Displaymodes or not. Default value is false. -->`<br />
+`<bool name="enablePanelModeTile">false</bool>`<br />
 
-    \<!-- Show/hide the QS tile, if device supports switching HighBrightness mode or not. Default value is false. -->
-    \<bool name="enableHBMModeTile">false</bool>
+`<!-- Show/hide the QS tile, if device supports switching HighBrightness mode or not. Default value is false. -->`<br />
+`<bool name="enableHBMModeTile">false</bool>`<br />
 
-	\<!-- Whether device supports disabling hwkeys -->
-	\<string name="pathHWKToggle">\</string>
+`<!-- Whether device supports disabling hwkeys -->`<br />
+`<string name="pathHWKToggle"> </string>`<br />
 
-	\<!-- Path to devices single-tap toggle file -->
-	\<string name="pathSTapToggle">\</string>
+`<!-- Path to devices single-tap toggle file -->`<br />
+`<string name="pathSTapToggle"> </string>`<br />
 
-	\<!-- Path to devices doubletap to wake toggle file -->
-	\<string name="pathDoubleTapToWakeToggle">\</string>
+`<!-- Path to devices doubletap to wake toggle file -->`<br />
+`<string name="pathDoubleTapToWakeToggle"> </string>`<br />
 
-	\<!-- Path to devices sweep to wake toggle file -->
-	\<string name="pathSweepToWakeToggle">\</string>
+`<!-- Path to devices sweep to wake toggle file -->`<br />
+`<string name="pathSweepToWakeToggle"> </string>`<br />
 
-	\<!-- Path to devices High Brightness Mode toggle file -->
-	\<string name="pathHBMModeToggle">\</string>
-	\<string name="hbmOFF">"0"\</string>
-	\<string name="hbmON">"1"\</string>
+`<!-- Path to devices High Brightness Mode toggle file -->`<br />
+`<string name="pathHBMModeToggle"> </string>`<br />
+`<string name="hbmOFF">"0"</string>`<br />
+`<string name="hbmON">"1"</string>`<br />
 
-	\<!-- Path to devices OnePlus Mode toggle file -->
-	\<string name="pathOnePlusModeToggle">\</string>
+`<!-- Path to devices OnePlus Mode toggle file -->`<br />
+`<string name="pathOnePlusModeToggle"> </string>`<br />
 
-	\<!-- Path to devices SRGBMode toggle file -->
-	\<string name="pathSRGBModeToggle">\</string>
+`<!-- Path to devices SRGBMode toggle file -->`<br />
+`<string name="pathSRGBModeToggle"> </string>`<br />
 
-	\<!-- Path to devices DCI-P3 Mode toggle file -->
-	\<string name="pathDCIModeToggle">\</string>
+`<!-- Path to devices DCI-P3 Mode toggle file -->`<br />
+`<string name="pathDCIModeToggle"> </string>`<br />
 
-	\<!-- Path to devices Nightmode toggle file -->
-	\<string name="pathNightModeToggle">\</string>
+`<!-- Path to devices Nightmode toggle file -->`<br />
+`<string name="pathNightModeToggle"> </string>`<br />
 
-	\<!-- Path to devices DC-Dimming Mode toggle file -->
-	\<string name="pathDCDModeToggle">\</string>
+`<!-- Path to devices DC-Dimming Mode toggle file -->`<br />
+`<string name="pathDCDModeToggle"> </string>`<br />
 
-	\<!-- Path to devices WideMode toggle file -->
-	\<string name="pathWideModeToggle">\</string>
+`<!-- Path to devices WideMode toggle file -->`<br />
+`<string name="pathWideModeToggle"> </string>`<br />
 
-	\<!-- Path to devices system vibrationlevels -->
-	\<string name="pathSystemVibStrength">\</string>
+`<!-- Path to devices system vibrationlevels -->`<br />
+`<string name="pathSystemVibStrength"> </string>`<br />
 
-	\<!-- Path to devices calls vibrationlevels -->
-	\<string name="pathCallVibStrength">\</string>
+`<!-- Path to devices calls vibrationlevels -->`<br />
+`<string name="pathCallVibStrength"> </string>`<br />
 
-	\<!-- Path to devices notification vibrationlevels -->
-	\<string name="pathNotifVibStrength">\</string>
+`<!-- Path to devices notification vibrationlevels -->`<br />
+`<string name="pathNotifVibStrength"> </string>`<br />
 
-	\<!-- Device vibrator min-max-default values -->
-	\<integer name="vibratorMinMV">\</integer>
-	\<integer name="vibratorMaxMV">\</integer>
-	\<integer name="vibratorDefaultMV">\</integer>
+`<!-- Device vibrator min-max-default values -->`<br />
+`<integer name="vibratorMinMV"> </integer>`<br />
+`<integer name="vibratorMaxMV"> </integer>`<br />
+`<integer name="vibratorDefaultMV"> </integer>`<br />
