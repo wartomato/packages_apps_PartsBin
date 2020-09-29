@@ -18,6 +18,7 @@
 package com.aicp.device;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
